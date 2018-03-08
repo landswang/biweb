@@ -1,0 +1,26 @@
+﻿.middle .head .mht{border-bottom:none; color:#CACACA; cursor:pointer;}
+.middle .head .cur{border-bottom:solid 5px #FF8C12; color:#676767;}
+.middle .tradecoin{line-height:22px; background:#FCFCFC;}
+.middle .tradecoin .tradecointable{width:100%; background:#FCFCFC;}
+.middle .tradecoin .tradecointable td{text-align:center; padding:10px 0px; line-height:24px;}
+.middle .memberassets{width:100%; background:#FCFCFC; margin-top:20px;}
+.middle .memberassets td{text-align:center; line-height:30px; padding:10px 0px;}
+.middle .memberassets td a{color:yellow; background:red; padding:5px 20px; border-radius:10px;}
+.middle .buyselllogin{text-align:center; margin:35px 0px 30px 0px;}
+.middle .buyselllogin a{color:yellow; background:red; padding:10px 40px; border-radius:10px;}
+.middle .mleftlist{width:757px; height:540px; float:left; padding:10px; background:#FCFCFC url("/resources/images/trade/vdashed.png") no-repeat center;}
+.middle .tradecoin .mleftlisttrade{width:500px; float:left; margin-left:40px;}
+.middle .tradecoin .mleftlisttrade .tradehead{text-align:center; font-weight:bold; margin:25px 0px 30px 0px; font-size:16px;}
+.middle .tradecoin .mleftlisttrade table{width:100%; height:250px;}
+.middle .linkbtn{padding:3px 10px; background:#FF8C12; boder-radius:3px; color:white;}
+.middle .myorderform{background:#FCFCFC; padding:10px;}
+.middle .myorderform .myorderformpanel{height:250px; overflow:auto;}
+.middle .lasttraderecord{background:#FCFCFC; padding:10px;}
+.middle .tradeinput{width:120px;}
+.middle .btntrade{border:none; width:100%; padding:7px 0px; color:white;}
+.middle .btntradebuy{background:#28BA39;}
+.middle .btntradesell{background:#F0352F;}
+.middle .wordsbuy{color:#28BA39;}
+.middle .wordssell{color:#F0352F;}
+.middle .tradelist tr{cursor:pointer;}
+.middle .coindescription{display:none; background:#FCFCFC; padding:10px;}

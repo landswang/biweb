@@ -1,0 +1,99 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/dialog.css" type="text/css" rel="stylesheet" />
+<#if device == "_m"><link href="/resources/css/dialog_m.css" type="text/css" rel="stylesheet" /></#if>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/upload.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/dialog.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/account.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>个人资料<a href="../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>个人资料</div>
+    			<div class="middlerightcont">
+		    		<form method="post" action="update" onsubmit="return checkform()">
+			    		<table class="tableedit">
+		                    <tr>
+		                        <td>ID：</td>
+		                        <td>
+		                        	${member.id}
+		                        </td>
+								<td width="260" rowspan="3">
+								    <img id="face_pre" src="${member.face!'/resources/images/defaultface.jpg'}" width="60" height="60" />
+								    <input type="hidden" name="face" id="face" value="${member.face!}" /><br />
+								    <a class="linkbtn upload">本地上传</a>
+									<input type="file" id="facefile" name="srcfile" class="uploadfile" onchange="upload()" accept="image/*" />
+					                <div id="uploading" style="display:none;">上传中...</div>
+								</td>
+		                    </tr>
+		                    <tr>
+		                        <td>手机号码：</td>
+		                        <td>
+		                        	${member.mobile?substring(0,7)}****
+		                        	<a href="changemobile" style="color:#FF8C12;">修改手机号码</a>
+		                        </td>
+		                    </tr>
+			   				<tr>
+			   					<td></td>
+			   					<td>
+			   						<br />
+			   						<input type="submit" value="保存" class="subbtn" />
+			   					</td>
+			   				</tr>
+		                </table>
+		               	<input type="hidden" name="memberid" value="${member.id}" />
+		        	</form>
+	    		</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+	    	<div class="middlecont">
+	    		<table class="tableedit">
+                   	<tr>
+						<td colspan="2" style="text-align:center;">
+						    <img id="face_pre" src="${member.face!'/resources/images/defaultface.jpg'}" width="60" height="60" />
+						</td>
+                    </tr>
+                   	<tr>
+                        <td>ID：</td>
+                        <td>
+                        	${member.id}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>手机号码：</td>
+                        <td>
+	                        ${member.mobile?substring(0,7)}****
+                        	<a href="changemobile" style="color:#FF8C12;">修改手机号码</a>
+                        </td>
+                    </tr>
+                </table>
+	    	</div>
+	    </#if>
+    </div>
+    <#include "../../include/bottom.html">
+    <#if device == "">
+    	<div id="dialog_imagecrop" class="dialog"></div>
+    </#if>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>工单解答<a href="reply" class="logout">新建</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>工单解答</div>
+	    		<div class="middlerightcont">
+		    		<table class="tools">
+		    			<tr>
+		    				<td align="right">
+		    					<a href="reply" class="linkbtn insert">新增工单</a>
+		    				</td>
+		    			</tr>
+			    	</table>
+					<table cellspacing="0" class="tablelist">
+			    	 	<tr>
+			    	 		<th>标题</th>
+			    	 		<th>时间</th>
+			    	 		<th>状态</th>
+			    	 		<th>操作</th>
+			    	 	</tr>
+			    	 	<#list repairorders as repairorder>
+				    	 	<tr<#if repairorder_index % 2 == 1> class="splittr"</#if>>
+				    	 		<td align="center">${repairorder.title}</td>
+				    	 		<td align="center">${repairorder.refreshtime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				    	 		<td align="center">${repairorder.repairorderState.name}</td>
+				    	 		<td align="center">
+				    	 			<a href="reply?repairorderid=${repairorder.id}" class="linkbtn">查看</a>
+				    	 		</td>
+				    	 	</tr>
+			    	 	</#list>
+		    	 	</table>
+		    	</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+	    	<div class="middlecont">
+	    		<table cellspacing="0" class="tablelist">
+		    	 	<tr>
+		    	 		<th>标题</th>
+		    	 		<th>时间</th>
+		    	 		<th>状态</th>
+		    	 		<th>操作</th>
+		    	 	</tr>
+		    	 	<#list repairorders as repairorder>
+			    	 	<tr<#if repairorder_index % 2 == 1> class="splittr"</#if>>
+			    	 		<td align="center">${repairorder.title}</td>
+			    	 		<td align="center">${repairorder.refreshtime?string('yyyy-MM-dd HH:mm:ss')}</td>
+			    	 		<td align="center">${repairorder.repairorderState.name}</td>
+			    	 		<td align="center">
+			    	 			<a href="reply?repairorderid=${repairorder.id}" class="linkbtn">查看</a>
+			    	 		</td>
+			    	 	</tr>
+		    	 	</#list>
+	    	 	</table>
+	    	</div>
+		</#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

@@ -1,0 +1,11 @@
+﻿.middle .left{background:#FCFCFC; padding:10px;}
+.middle .left a{font-size:16px; margin-left:5px;}
+.middle .left a.cur{color:#FF8C12;}
+.middle .left span.cur{background:#FF8C12;}
+.middle .right{background:#FCFCFC; padding:10px;}
+.middle .right .articlehead{text-align:center; margin-bottom:20px;}
+.middle .right .articlehead h1{font-size:28px;}
+.middle .right .articlecontents{line-height:22px; text-indent:2em; margin-top:20px;}
+.middle .right .articlecontents img{max-width:100%; height:auto;}
+.middle .right .articlecontents video{max-width:100%; height:auto;}
+.middle .right .articlecontents embed{max-width:100%; height:auto;}

@@ -1,0 +1,8 @@
+.middle .middlelogin{padding:10px; margin-top:20px;}
+.middle .middlelogin .logintitle{font-size:30px; font-weight:bold; color:black; text-align:center;}
+.middle .middlelogin ul{padding:0px; margin-top:10px;}
+.middle .middlelogin ul li{list-style:none; margin:5px 0px;}
+.middle .middlelogin #mobilevcode{width:93%; padding:10px;}
+.middle .middlelogin .vcode input{width:45%; padding:10px;}
+.middle .middlelogin .vcode img{width:112px; height:44px; margin:1px; vertical-align:middle;}
+.middle .middlelogin .loginbtn{background:#FF4400; width:100%; height:45px; line-height:45px; text-align:center; color:white;  font-weight:bold; border:none; border-radius:4px;}

@@ -1,0 +1,35 @@
+﻿.middle{background:#FCFCFC url(/resources/images/member/middlebg.png) repeat-y; border:solid 1px #E8E8E8;}
+.middle .middleleft{width:180px; float:left;}
+.middle .middleleft .first{font-size:14px; font-weight:bold; text-align:center; padding:10px; background:#5FA7D9; color:white; display:block;}
+.middle .middleleft .second a{display:block; height:31px; line-height:30px; text-align:center; margin-bottom:5px; text-decoration:none;}
+.middle .middleleft .second a:hover{background:#FF9C31; color:white;}
+.middle .middleleft .second a.cur{background:#FF8400; color:white;}
+.middle .middleright{width:1020px; float:right; text-align:left;}
+.middle .middleright .position{height:39px; background:#5FA7D9; line-height:39px; border-left:solid 1px #E8E8E8; color:white;}
+.middle .middleright .position *{color:white;}
+.middle .middleright .position span{font-weight:bold; float:left; margin-left:12px; background:url(/resources/images/admin/main/right/position.png) no-repeat left 5px; padding-left:30px;}
+.middle .middleright .middlerightcont{padding:10px;}
+.middle .middleright .middlerightcont input{color:black;}
+.middle .middleright .middlerightcont select{color:black;}
+.middle .middleright .middlerightcont select *{color:black;}
+.middle .middleright .middlerightcont .linkbtn{padding:3px 10px; background:#FF8C12; boder-radius:3px; color:white;}
+.middle .middleright .middlerightcont .linkbtn.gray{background:gray;}
+.middle .middleright .middlerightcont .conttabhead{height:25px; border-bottom:solid 2px #7FB5CB;}
+.middle .middleright .middlerightcont .conttabhead *{padding:5px 20px;}
+.middle .middleright .middlerightcont .conttabhead span{background:#7FB5CB; color:white;}
+.middle .middleright .middlerightcont .conttabhead a{background:white; color:#676767;}
+.middle .middleright .middlerightcont .tools{width:100%; clear:both;}
+.middle .middleright .middlerightcont .tools *{vertical-align:middle;}
+.middle .middleright .middlerightcont .tools input[type=radio]{vertical-align:sub;}
+.middle .middleright .middlerightcont .tablelist{border:solid 1px #DCF0F6;}
+.middle .middleright .middlerightcont .tablelist th{height:35px; line-height:35px; text-align:center; background:#DCF0F6; color:#4A4A4A;}
+.middle .middleright .middlerightcont .tableedit{width:100%;}
+.middle .middleright .middlerightcont .tableedit td{padding:7px 0px; vertical-align:top; line-height:22px;}
+.middle .middleright .middlerightcont .tableedit td:first-child{width:100px; text-align:right; padding-top:7px;}
+.middle .middleright .middlerightcont .tableedit td:nth-child(2) *{vertical-align:middle;}
+.middle .middleright .middlerightcont input.subbtn{border:none; border-radius:3px; color:white; cursor:pointer; background:#FF8400; margin-right:10px; padding:7px 30px;}
+.middle .middleright .middlerightcont .notice{text-align:left; line-height:22px;}
+.middle .middleright .middlerightcont .notice b{color:red;}
+.middle .middleright .middlerightcont .notice b *{color:red;}
+.uploadfile{filter:alpha(opacity=0); -moz-opacity:0; opacity:0; width:80px; position:relative; left:-85px; cursor:pointer;}
+.uploaditem{position:relative; left:-82px; vertical-align:middle;}

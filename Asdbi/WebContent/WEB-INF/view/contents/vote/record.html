@@ -1,0 +1,64 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>我的投票-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/vote/record${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+   		<div class="head">
+   			<a href="./" class="title mht">新币投票</a>
+   			<a class="title mht cur">投票记录</a>
+   			<a href="apply" class="title mht">上币申请</a>
+   			<br class="clear" />
+   		</div>
+  		<form method="post" action="record">
+   			<div class="middlebottom">
+   				投票币种：
+   				<select name="voteid" onchange="getform(this).submit();">
+   					<option value="0">--全部--</option>
+   					<#list votes as vote>
+   						<option value="${vote.id}"<#if vote.id == voteid> selected</#if>>${vote.cname}</option>
+   					</#list>
+   				</select>
+   				&nbsp;&nbsp;&nbsp;&nbsp;
+   				投票类型：
+   				<select name="type" onchange="getform(this).submit();">
+   					<option value="-1">--全部--</option>
+   					<option value="1"<#if type == 1> selected</#if>>赞成</option>
+   					<option value="0"<#if type == 0> selected</#if>>反对</option>
+   				</select>
+   				&nbsp;&nbsp;&nbsp;&nbsp;
+   				<label><input type="checkbox" name="onlyme"<#if onlyme> checked</#if> onclick="getform(this).submit()" />只看我的</label>
+   				<br />
+		    	<table class="tablelist" cellspacing="0">
+		    		<tr>
+		    			<th>币种名称</th>
+		    			<th>投票类型</th>
+		    			<th>投票时间</th>
+		    		</tr>
+		   			<#list records as record>
+						<tr<#if record_index % 2 == 1> class="splittr"</#if>>
+							<td>${record.vote.cname} | ${record.vote.ename}</td>
+							<td>${record.approve?string("<span style='color:green;'>赞成</span>","<span style='color:red;'>反对</span>")}</td>
+							<td>${record.votetime?string('yyyy-MM-dd HH:mm:ss')}</td>
+						</tr>
+					</#list>
+		   		</table>
+	   			<br />
+	    		<#include "../include/pager.html">
+   			</div>
+   		</form>
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

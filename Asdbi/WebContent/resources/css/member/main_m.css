@@ -1,0 +1,19 @@
+﻿.top{text-align:center; font-size:16px; padding-top:15px; height:30px;}
+.top .return{position:absolute; left:10px; top:12px;}
+.top .return img{height:18px;}
+.top .logout{position:absolute; right:10px; top:12px;}
+.middle .middlecont{padding:10px;}
+.middle .tablelist{background:#F1F1F1; border:solid 1px #E8E8E8; margin:auto;}
+.middle .tablelist th{height:40px; line-height:20px; text-align:center;}
+.middle .tablelist th img{vertical-align:text-bottom;}
+.middle .tablelist td{background:white;}
+.middle .tableedit td{padding:4px 0px; vertical-align:top; line-height:24px;}
+.middle .tableedit td:first-child{width:100px; text-align:right;}
+.middle .tableedit td:nth-child(2) input{vertical-align:middle;}
+.middle .notice{text-align:left; line-height:22px;}
+.middle .notice b{color:red;}
+.middle .notice b *{color:red;}
+.middle input.subbtn{border:none; border-radius:4px; color:white; cursor:pointer; background:#FF8400; margin-right:5px; padding:5px 30px;}
+.linkbtn{background:#EDF6FA no-repeat 4px center; padding:0px 6px; text-decoration:none; border:solid 1px #D7E4EA; cursor:pointer; border-radius:4px; height:25px; line-height:25px; display:inline-block;}
+.uploadfile{filter:alpha(opacity=0); -moz-opacity:0; opacity:0; width:40px; position:relative; left:-40px; cursor:pointer;}
+.uploaditem{position:relative; left:-40px; vertical-align:middle;}

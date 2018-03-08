@@ -1,0 +1,164 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<#if device != ""><link href="/resources/css/member/push_m.css" type="text/css" rel="stylesheet"></#if>
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/pushtransfer.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>PUSH转账<a href=../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>PUSH转账</div>
+    			<div class="middlerightcont">
+    				<div class="conttabhead">
+    					<span>在线PUSH</span>
+    					<a href="sendrecord">发出的PUSH</a>
+    					<a href="receiverecord">接收的PUSH</a>
+    				</div>
+    				<br />
+    				<#if pushvirtualcoins.size() gt 0>
+	    				<form method="post" action="transferdo" onsubmit="return checkform()">
+		    				<table class="tableedit">
+			                    <tr>
+			                        <td>转账币种：</td>
+			                        <td>
+			                        	<select name="virtualcoinid">
+			                        		<#list pushvirtualcoins as virtualcoin>
+			                        			<option value="${virtualcoin.id}">${virtualcoin.cname} | ${virtualcoin.eunit}</option>
+			                        		</#list>
+			                        	</select>
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                    	<td>对方ID：</td>
+			                    	<td><input type="text" name="receiverid" id="receiverid" onkeydown="limitint(this)" /> <span style="color:red;">*</span></td>
+			                    </tr>
+			                    <tr>
+			                    	<td>PUSH数量：</td>
+			                    	<td><input type="text" name="count" id="count" maxlength="9" onkeydown="limitfloat(this)" /> <span style="color:red;">*</span></td>
+			                    </tr>
+			                    <tr>
+			                    	<td>约定金额：</td>
+			                    	<td><input type="text" name="money" id="money" maxlength="9" onkeydown="limitfloat(this)" /> <span style="color:red;">*</span> 这里填写总交易金额，就也是一口价，不是单价。</td>
+			                    </tr>
+			                    <tr>
+			                    	<td>交易密码：</td>
+			                    	<td><input type="password" name="tradepassword" id="tradepassword" /> <span style="color:red;">*</span></td>
+			                    </tr>
+			                    <tr>
+			                    	<td>短信验证码：</td>
+			                    	<td>
+			                    		<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" /> <span style="color:red;">*</span>
+										<a class="linkbtn sendmobilevalidate" onclick="sendmobilevalidate()">发送短信</a>
+			                    	</td>
+			                    </tr>
+			   					<tr>
+			   						<td></td>
+				   					<td>
+				   						<br />
+				   						<input type="submit" value="提交" class="subbtn" />
+				   					</td>
+				   				</tr>
+	               			</table>
+                			<#include "../../include/hident.html">
+               				<@s.token />
+	        			</form>
+        			<#else>
+        				<div class="notice">对不起，您暂无虚拟币或者可用币余额为0，所以无法进行该操作；</div>
+        			</#if>
+        			<br /><br />
+    				<div class="notice">
+    					转账说明：<br />
+    					PUSH手续费率为：${pushsetup.moneyrate}，最低手续费为：${pushsetup.moneyfeefloor}元；
+    				</div>
+	    		</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+    		<div class="middletop">
+				<a class="cur">在线PUSH</a>
+  				<a href="sendrecord">发出的PUSH</a>
+  				<a href="receiverecord">接收的PUSH</a>
+			</div>
+ 			<div class="middlebottom">
+   				<#if pushvirtualcoins.size() gt 0>
+					<form method="post" action="transferdo" onsubmit="return checkform()">
+	    				<table class="tableedit">
+		                    <tr>
+		                        <td>转账币种：</td>
+		                        <td>
+		                        	<select name="virtualcoinid">
+		                        		<#list pushvirtualcoins as virtualcoin>
+		                        			<option value="${virtualcoin.id}">${virtualcoin.cname} | ${virtualcoin.eunit}</option>
+		                        		</#list>
+		                        	</select>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                    	<td>对方ID：</td>
+		                    	<td><input type="text" name="receiverid" id="receiverid" onkeydown="limitint(this)" /> <span style="color:red;">*</span></td>
+		                    </tr>
+		                    <tr>
+		                    	<td>PUSH数量：</td>
+		                    	<td><input type="text" name="count" id="count" maxlength="9" onkeydown="limitfloat(this)" /> <span style="color:red;">*</span></td>
+		                    </tr>
+		                    <tr>
+		                    	<td>约定金额：</td>
+		                    	<td><input type="text" name="money" id="money" maxlength="9" onkeydown="limitfloat(this)" /> <span style="color:red;">*</span><br />这里填写总交易金额，就也是一口价，不是单价。</td>
+		                    </tr>
+		                    <tr>
+		                    	<td>交易密码：</td>
+		                    	<td><input type="password" name="tradepassword" id="tradepassword" /> <span style="color:red;">*</span></td>
+		                    </tr>
+		                    <tr>
+		                    	<td>短信验证码：</td>
+		                    	<td>
+		                    		<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" /> <span style="color:red;">*</span>
+									<a class="linkbtn sendmobilevalidate" onclick="sendmobilevalidate()">发送短信</a>
+		                    	</td>
+		                    </tr>
+		   					<tr>
+		   						<td></td>
+			   					<td>
+			   						<br />
+			   						<input type="submit" value="提交" class="subbtn" />
+			   					</td>
+			   				</tr>
+	              		</table>
+	              		<#include "../../include/hident.html">
+	              		<@s.token />
+	       			</form>
+       			<#else>
+       				<div class="notice">对不起，您暂无虚拟币或者可用币余额为0，所以无法进行该操作；</div>
+       			</#if>
+       			<br /><br />
+   				<div class="notice">
+   					转账说明：<br />
+   					PUSH手续费率为：${pushsetup.moneyrate}，最低手续费为：${pushsetup.moneyfeefloor}元；
+   				</div>
+      		</div>
+	    </#if>
+	    <input type="hidden" id="memberid" value="${Session.member.id}" />
+	    <input type="hidden" id="moneyfeefloor" value="${pushsetup.moneyfeefloor}" />
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

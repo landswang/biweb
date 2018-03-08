@@ -1,0 +1,111 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<#if device != ""><link href="/resources/css/member/password_m.css" type="text/css" rel="stylesheet"></#if>
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/passwordtrade.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>密码修改<a href="../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>密码修改</div>
+    			<div class="middlerightcont">
+    				<div class="conttabhead">
+    					<a href="login">登录密码</a>
+    					<span>交易密码</span>
+    				</div>
+    				<br />
+		    		<form method="post" action="updatetrade" onsubmit="return checkform()">
+			    		<table class="tableedit">
+							<tr>
+								<td>密码：</td>
+								<td>
+									<input type="password" name="password" id="password" onpaste="return false" /> <span style="color:red">*</span>
+								</td>
+							</tr>
+							<tr>
+								<td>密码确认：</td>
+								<td>
+									<input type="password" id="passwordSure" onpaste="return false" /> <span style="color:red">*</span>
+								</td>
+							</tr>
+		                    <tr>
+		                    	<td>短信验证码：</td>
+		                    	<td>
+		                    		<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" /> <span style="color:red;">*</span>
+		                    		<a class="linkbtn sendmobilevalidate" onclick="sendmobilevalidate()">发送短信</a>
+		                    	</td>
+		                    </tr>
+			   				<tr>
+			   					<td></td>
+			   					<td>
+			   						<br />
+			   						<input type="submit" value="保存" class="subbtn" />
+			   					</td>
+			   				</tr>
+		                </table>
+               			<#include "../../include/hident.html">
+					</form>
+	    		</div>
+		    </div>
+		    <br class="clear" />
+		<#else>
+			<#-- WAP -->
+	    	<div class="middletop">
+				<a href="login">登录密码</a>
+ 				<a class="cur">交易密码</a>
+			</div>
+ 			<div class="middlebottom">
+ 				<form method="post" action="updatetrade" onsubmit="return checkform()">
+		    		<table class="tableedit">
+						<tr>
+							<td>密码：</td>
+							<td>
+								<input type="password" name="password" id="password" /> <span style="color:red">*</span>
+							</td>
+						</tr>
+						<tr>
+							<td>密码确认：</td>
+							<td>
+								<input type="password" id="passwordSure" /> <span style="color:red">*</span>
+							</td>
+						</tr>
+	                    <tr>
+	                    	<td>短信验证码：</td>
+	                    	<td>
+	                    		<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" /> <span style="color:red;">*</span>
+	                    		<a class="linkbtn sendmobilevalidate" onclick="sendmobilevalidate()">发送短信</a>
+	                    	</td>
+	                    </tr>
+	   					<tr>
+		   					<td colspan="2" style="text-align:center;">
+		   						<input type="submit" value="保存" class="subbtn" />
+		   						<br /><br />
+		   					</td>
+		   				</tr>
+	                </table>
+	                <#include "../../include/hident.html">
+				</form>
+ 			</div>
+	    </#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

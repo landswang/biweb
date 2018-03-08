@@ -1,0 +1,50 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>找回密码-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/findpwd${device}.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/findpwd.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+    	<#if device == "">
+	         <div class="middleleft">
+	         	<img src="/resources/images/member/login.jpg" />
+	         </div>
+		</#if>
+         <div class="${(device == '')?string('middleright','middlefindpwd')}">
+			<form name="form_findpwd" method="post" action="findpwddo" onsubmit="return checkform()">
+				<div class="findpwdtitle">找回密码</div>
+				<ul>
+                   	<li><input type="password" name="password" id="password" required placeholder="新密码" onpaste="return false" /></li>
+                   	<li><input type="password" id="passwordSure" required placeholder="新密码确认" onpaste="return false" /></li>
+                   	<li><input type="text" name="mobile" id="mobile" maxlength="11" required placeholder="手机号码" /></li>
+                   	<li>
+						<input type="text" name="vcode" id="vcode" maxlength="4" style="width:80px" required placeholder="图形验证码" />
+						<img id="vcodeimg" src="/validatecode.do?width=76&height=25" onclick="changevocde()" />
+						<a class="sendmobilevalidate" onclick="sendmobilevalidate()">输入图形验证获取短信</a>
+                   	</li>
+                   	<li><input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" required placeholder="短信验证码" style="width:120px;" /></li>
+                   	<li>
+                       	<br /><input type="submit" class="findpwdbtn" value="提 交" /><br /><br />
+                   	</li>
+                   	<li>
+                       	<label><a href="login">返回登录</a></label>
+                   	</li>
+				</ul>
+				<@s.token />
+			</form>
+         </div>
+    </div>
+	<#include "../include/bottom.html">
+</body>
+</html>

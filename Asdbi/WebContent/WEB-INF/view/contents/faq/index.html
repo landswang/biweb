@@ -1,0 +1,52 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>${articleType.name}-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/article/index${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle" style="height:700px">
+    	<div class="left">
+	    		<span<#if articleType.id == 95> class="cur"</#if>>&nbsp;</span><a href="/faq/95.html"<#if articleType.id == 95> class="cur"</#if>>注册登录</a><#if device == ""><br /><br /><#else>&nbsp;&nbsp;</#if>
+	    		<span<#if articleType.id == 98> class="cur"</#if>>&nbsp;</span><a href="/faq/98.html"<#if articleType.id == 98> class="cur"</#if>>充值提现</a><#if device == ""><br /><br /><#else>&nbsp;&nbsp;</#if>
+	    		<span<#if articleType.id == 97> class="cur"</#if>>&nbsp;</span><a href="/faq/97.html"<#if articleType.id == 97> class="cur"</#if>>充币提币</a><#if device == ""><br /><br /><#else>&nbsp;&nbsp;</#if>
+	    		<span<#if articleType.id == 96> class="cur"</#if>>&nbsp;</span><a href="/faq/96.html"<#if articleType.id == 96> class="cur"</#if>>交易委托</a><#if device == ""><br /><br /><#else>&nbsp;&nbsp;</#if>
+	    		<span<#if articleType.id == 99> class="cur"</#if>>&nbsp;</span><a href="/faq/99.html"<#if articleType.id == 99> class="cur"</#if>>安全设置</a>
+    	</div>
+    	<div class="right">
+    		<form method="post" action="/faq/${articleType.id}.html">
+	    		<table cellspacing="0">
+	    			<#list articles as article>
+						<tr>
+							<td class="algleft">&nbsp;&nbsp;<h1>${article.title}</h1></td>
+							
+						</tr>
+						<tr>
+							<td class="algleft">&nbsp;&nbsp;&nbsp;&nbsp;${article.contents!}</td>
+						</tr>
+						
+						<tr class="">
+							<td class="algleft"> </td>
+						</tr>
+						<tr class="">
+							<td class="algleft"> </td>
+						</tr>
+					</#list>
+	    		</table>
+	    		<br />
+    		</form>
+    	</div>
+    	<br class="clear" />
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

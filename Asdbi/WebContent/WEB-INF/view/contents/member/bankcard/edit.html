@@ -1,0 +1,140 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<#if device == "_m"><link href="/resources/css/dialog_m.css" type="text/css" rel="stylesheet" /></#if>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/area.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/bankcardedit.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="./" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>${(bankcard.id==0)?string('新增','修改')}银行卡号</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span><a href="./">银行卡号</a> > ${(bankcard.id==0)?string('新增','修改')}银行卡号</div>
+    			<div class="middlerightcont">
+    				<form method="post" action="editdo" onsubmit="return checkform()">
+	    				<table class="tableedit">
+		                    <tr>
+		                    	<td>开户姓名：</td>
+		                    	<td><input type="text" value="${member.name}" disabled /> <span style="color:red;">*</span> 开户姓名必须与您的实名认证姓名一致</td>
+		                    </tr>
+		                    <tr>
+		                    	<td>银行卡号：</td>
+		                    	<td><input type="text" name="number" id="number" onkeydown="limitint(this)" maxlength="21" style="width:180px;" onblur="validatebankcard()" /> <span style="color:red;">*</span></td>
+		                    </tr>
+		                    <tr>
+		                    	<td>银行名称：</td>
+		                    	<td><input type="text" name="bankname" id="bankname" readonly /></td>
+		                    </tr>
+		                    <tr>
+		                    	<td>所在地区：</td>
+		                    	<td>
+		                    		<select name="addprovince" id="addprovince" onchange="setlinkageareas(1);setlinkageareainidata(this);"></select>
+									<select name="addcity" id="addcity" onchange="setlinkageareainidata(this);"></select>
+		                    	</td>
+		                    </tr>
+		                    <tr>
+		                    	<td>开户支行：</td>
+		                    	<td><input type="text" name="branch" id="branch" /></td>
+		                    </tr>
+		                    <tr>
+		                    	<td>短信验证码：</td>
+		                    	<td>
+		                    		<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" /> <span style="color:red;">*</span>
+									<a class="linkbtn sendmobilevalidate" onclick="sendmobilevalidate()">发送短信</a>
+		                    	</td>
+		                    </tr>
+		   					<tr>
+		   						<td></td>
+			   					<td>
+			   						<br />
+			   						<input type="submit" value="提交" class="subbtn" />
+			   					</td>
+			   				</tr>
+               			</table>
+						<input type="hidden" name="bankcardid" value="${bankcard.id}" />
+               			<#include "../../include/hident.html">
+        			</form>
+				    <input type="hidden" id="addprovince_inidata" value="${bankcard.addprovince!}" />
+				    <input type="hidden" id="addcity_inidata" value="${bankcard.addcity!}" />
+				    <br /><br />
+				    <div class="notice">
+				    	亲，请务必保证您填写的银行卡信息是真实的，如故意填写虚假信息者，我平台为了您财产安全，会对您的账号进行冻结。
+				    </div>
+	    		</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+	    	<div class="middlecont">
+	    		<form method="post" action="editdo" onsubmit="return checkform()">
+    				<table class="tableedit">
+	                    <tr>
+	                    	<td>开户姓名：</td>
+		                    <td><input type="text" value="${member.name}" disabled /> <span style="color:red;">*</span><br />开户姓名必须与您的实名认证姓名一致</td>
+	                    </tr>
+	                    <tr>
+	                    	<td>银行卡号：</td>
+	                    	<td><input type="text" name="number" id="number" onkeydown="limitint(this)" maxlength="21" style="width:180px;" onblur="validatebankcard()" /> <span style="color:red;">*</span></td>
+	                    </tr>
+	                    <tr>
+	                    	<td>银行名称：</td>
+	                    	<td><input type="text" name="bankname" id="bankname" readonly /></td>
+	                    </tr>
+	                    <tr>
+	                    	<td>所在地区：</td>
+	                    	<td>
+	                    		<select name="addprovince" id="addprovince" onchange="setlinkageareas(1);setlinkageareainidata(this);"></select>
+								<select name="addcity" id="addcity" onchange="setlinkageareainidata(this);"></select>
+	                    	</td>
+	                    </tr>
+	                    <tr>
+	                    	<td>开户支行：</td>
+	                    	<td><input type="text" name="branch" id="branch" /></td>
+	                    </tr>
+	                    <tr>
+	                    	<td>短信验证码：</td>
+	                    	<td>
+	                    		<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" /> <span style="color:red;">*</span>
+								<a class="linkbtn sendmobilevalidate" onclick="sendmobilevalidate()">发送短信</a>
+	                    	</td>
+	                    </tr>
+	   					<tr>
+	   						<td></td>
+		   					<td>
+		   						<br />
+		   						<input type="submit" value="提交" class="subbtn" />
+		   					</td>
+		   				</tr>
+              		</table>
+					<input type="hidden" name="bankcardid" value="${bankcard.id}" />
+					<#include "../../include/hident.html">
+       			</form>
+			    <input type="hidden" id="addprovince_inidata" value="${bankcard.addprovince!}" />
+			    <input type="hidden" id="addcity_inidata" value="${bankcard.addcity!}" />
+			    <br /><br />
+			    <div class="notice">
+			    	亲，请务必保证您填写的银行卡信息是真实的，如故意填写虚假信息者，我平台为了您财产安全，会对您的账号进行冻结。
+			    </div>
+	    	</div>
+	    </#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

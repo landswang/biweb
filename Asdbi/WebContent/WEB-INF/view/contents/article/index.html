@@ -1,0 +1,43 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>${articleType.name}-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/article/index${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+    	<div class="left">
+    		<span<#if articleType.id == 1> class="cur"</#if>>&nbsp;</span><a href="/article/1.html"<#if articleType.id == 1> class="cur"</#if>>官方公告</a><#if device == ""><br /><br /><#else>&nbsp;&nbsp;</#if>
+    		<span<#if articleType.id == 2> class="cur"</#if>>&nbsp;</span><a href="/article/2.html"<#if articleType.id == 2> class="cur"</#if>>行业资讯</a>
+    	</div>
+    	<div class="right">
+    		<form method="post" action="/article/${articleType.id}.html">
+    			<#if device == "">
+	    			<div class="head"><span class="title">${articleType.name}</span><br class="clear" /></div>
+	    		</#if>
+	    		<table class="tablelist" cellspacing="0">
+	    			<#list articles as article>
+						<tr<#if article_index % 2 == 1> class="splittr"</#if>>
+							<td class="algleft">&nbsp;<a href="/article/detail/${article.id}.html">${article.title}</a></td>
+							<td align="right">${article.publishtime?string('MM-dd')}</td>
+						</tr>
+					</#list>
+	    		</table>
+	    		<br />
+	    		<#include "../include/pager.html">
+    		</form>
+    	</div>
+    	<br class="clear" />
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

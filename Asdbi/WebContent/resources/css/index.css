@@ -1,0 +1,19 @@
+﻿.top{width:100%; height:480px; background:url(/resources/images/index/bg.jpg) center; position:inherit; perspective: 480px; overflow:hidden;}
+.top .cont{position:relative;}
+.top .cont img{width:250px; margin:110px 0px 0px 470px; z-index:999;}
+.top .cont .member{position:absolute; right:20px; top:60px; color:white;}
+.top .cont .member *{color:white;}
+.middle{margin-top:30px;}
+.middle .menu{height:40px; text-align:center; position:relative;}
+.middle .menu a.first{width:125px; height:35px; line-height:35px; border:solid 1px #00ABDE; margin:0px 15px; background:#DCF0F6; display:inline-table;}
+.middle .menu a.first:hover{background:white;}
+.middle .menu .coins{position:absolute; left:280px; top:38px; width:600px; background:#F8FBFF; padding:10px; line-height:30px; display:none; border:solid 1px #A9B6D6;}
+.middle .menu .coins a{width:100px; float:left; text-align:left; margin:5px 5px 5px 25px;}
+.middle .menu .coins a:hover{color:#FF8C12;}
+.middle .menu .coins a img{width:20px; height:20px; vertical-align:middle; margin-right:5px;}
+.middle .head .mht{border-bottom:none; color:#CACACA; cursor:pointer;}
+.middle .head .cur{border-bottom:solid 5px #FF8C12; color:#676767;}
+.middle .article img{vertical-align:middle;}
+.middle .vcoins a{width:197px; float:left; background:#FCFCFC; padding:10px; margin:0px 10px 20px 10px; border:solid 1px #fff6e2;}
+.middle .vcoins a:hover{border-color:#ffc642;}
+.middle .vcoins a img{width:40px; height:40px; float:left; margin-right:10px;}

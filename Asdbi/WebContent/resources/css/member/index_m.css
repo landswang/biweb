@@ -1,0 +1,14 @@
+﻿.middle{background:#F5F5F5;}
+.middle .memberinfo{padding:10px 0px; background:#FFC9C9 url(/resources/images/member/main/wap/memberinfobg.gif) no-repeat; line-height:30px;}
+.middle .memberinfo img{width:60px; height:60px; border:solid 2px white; border-radius:35px; float:left; margin:0px 12px 0px 10px; vertical-align:text-top;}
+.middle .memberinfo a{margin-right:10px;}
+.middle .memberinfo .attestationed{color:green;}
+.middle .memberinfo .noattestation{color:red;}
+.middle .totalbalance{font-weight:bold; color:#ff7733;}
+.middle .memberassets{padding:10px; line-height:22px; background:white; margin-top:10px;}
+.middle .menus{margin-top:10px; background:white;}
+.middle .menus{border-top:solid 1px #E8E8E8; margin-top:10px;}
+.middle .menus a{display:block; padding:15px; background:white; border-bottom:solid 1px #E8E8E8; position:relative;}
+.middle .menus a img{position:absolute; right:10px; top:17px; height:12px;}
+.middle .email{background:white; text-align:center; padding:15px 0px; border-top:solid 1px #E8E8E8; border-bottom:solid 1px #E8E8E8; line-height:22px;}
+.middle .tablelist{margin-top:10px;}

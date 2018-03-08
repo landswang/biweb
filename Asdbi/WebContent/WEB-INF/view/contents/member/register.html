@@ -1,0 +1,98 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>用户注册-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/register${device}.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main${device}.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/register.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+    	<div class="${(device == '')?string('left','middleregister')}">
+    		<#if device == "_m"><div class="registertitle">用户注册</div></#if>
+			<form name="form_register" method="post" action="registerdo" onsubmit="return checkform()">
+				<table>
+					<#if device == "">
+						<tr>
+							<td width="240"></td>
+							<td class="registertitle">用户注册<br /><br /></td>
+						</tr>
+					</#if>
+					<tr>
+						<td align="right">手机号码：</td>
+						<td>
+							<input type="text" name="mobile" id="mobile" maxlength="11" onkeydown="limitint(this)" />
+							<span style="color:red">*</span>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">图形验证码：</td>
+						<td>
+							<input type="text" name="vcode" id="vcode" maxlength="4" style="width:80px" />
+							<img id="vcodeimg" src="/validatecode.do?width=76&height=25" onclick="changevocde()" />
+							<#if device == "_m"><br /><br /></#if>
+							<a class="sendmobilevalidate" onclick="sendmobilevalidate()">输入图形验证获取短信</a>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">短信验证码：</td>
+						<td>
+							<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" />
+							<span style="color:red">*</span>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">密码：</td>
+						<td>
+							<input type="password" name="password" id="password" onpaste="return false" />
+							<span style="color:red">*</span>
+							<span>请至少输入6位</span>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">密码确认：</td>
+						<td>
+							<input type="password" id="passwordSure" onpaste="return false" />
+							<span style="color:red">*</span>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">邀请码：</td>
+						<td>
+							<input type="text" name="invitecode" value="${invitecode!}" onkeydown="limitint(this)" />
+							<span>可选，如果没有则留空</span>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<label><input type="checkbox" onclick="agree()" />我已阅读并同意<a href="/article/detail/30.html" target="_blank" style="color:blue;">《注册协议》</a>条款</label>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<input type="submit" value="提交" id="subbtn" class="subbtn" disabled style="background:gray;" />
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<#if device == "">
+			<div class="right">
+				<img src="/resources/images/member/register.jpg" height="378" />
+			</div>
+			<br class="clear" />
+		</#if>
+    </div>
+	<#include "../include/bottom.html">
+</body>
+</html>

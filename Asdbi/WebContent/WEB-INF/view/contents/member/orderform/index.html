@@ -1,0 +1,126 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/datepicker/wdatepicker.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>挂单管理<a href="../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>挂单管理</div>
+	    		<div class="middlerightcont">
+	    			<form method="post" action="./">
+			    		<table class="tools">
+			    			<tr>
+			    				<td>
+			    					币种：
+			    					<select name="virtualcoinid" onchange="getform(this).submit()">
+			    						<option value="0">--全部--</option>
+										<#list virtualcoins as virtualcoin>
+											<option value="${virtualcoin.id}"<#if virtualcoin.id == virtualcoinid> selected</#if>>${virtualcoin.cname}</option>
+										</#list>
+			    					</select>
+		   							&nbsp;&nbsp;
+		   							时间：<input type="text" name="dt1" value="${(dt1?string('yyyy-MM-dd HH:mm:ss'))!}" onfocus="datepicker('yyyy-MM-dd HH:mm:ss')" /> -
+			                   		 <input type="text" name="dt2" value="${(dt2?string('yyyy-MM-dd HH:mm:ss'))!}" onfocus="datepicker('yyyy-MM-dd HH:mm:ss')" />
+		   							&nbsp;&nbsp;
+			                    	<a onclick="getform(this).submit()" class="linkbtn">查询</a>
+			    				</td>
+			    			</tr>
+				    	</table>
+						<table cellspacing="0" class="tablelist">
+				    	 	<tr>
+				    	 		<th>币种</th>
+				    	 		<th>时间</th>
+				    	 		<th>类型</th>
+				    	 		<th>挂单价格</th>
+				    	 		<th>挂单数量</th>
+				    	 		<th>成交数量</th>
+				    	 		<th>操作</th>
+				    	 	</tr>
+				    	 	<#list orderforms as orderform>
+					    	 	<tr<#if orderform_index % 2 == 1> class="splittr"</#if>>
+					    	 		<td align="center">${orderform.virtualcoin.cname}</td>
+					    	 		<td align="center">${orderform.placetime?string('yyyy-MM-dd HH:mm:ss')}</td>
+					    	 		<td align="center">${orderform.buy?string('买入','卖出')}</td>
+					    	 		<td align="center">${orderform.price}</td>
+					    	 		<td align="center">${orderform.count}</td>
+					    	 		<td align="center">${orderform.countoriginal - orderform.count}</td>
+					    	 		<td align="center">
+					    	 			<a href="revocation?orderformid=${orderform.id}&callbackparams=${urlEncode(callbackparams)}" class="linkbtn" onclick="return confirm('确定撤销该条挂单吗？')">撤销</a>
+					    	 		</td>
+					    	 	</tr>
+				    	 	</#list>
+			    	 	</table>
+		                <br />
+		                <#include "../../include/pager.html">
+		    	 	</form>
+		    	</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+    		<div class="middlecont">
+				<form method="post" action="./">
+		    		<table class="tools">
+		    			<tr>
+		    				<td>
+		    					币种：
+		    					<select name="virtualcoinid" onchange="getform(this).submit()">
+		    						<option value="0">--全部--</option>
+									<#list virtualcoins as virtualcoin>
+										<option value="${virtualcoin.id}"<#if virtualcoin.id == virtualcoinid> selected</#if>>${virtualcoin.cname}</option>
+									</#list>
+		    					</select>
+		    				</td>
+		    			</tr>
+			    	</table>
+					<table cellspacing="0" class="tablelist">
+			    	 	<tr>
+			    	 		<th>币种</th>
+			    	 		<th>时间</th>
+			    	 		<th>类型</th>
+			    	 		<th>挂单价格</th>
+			    	 		<th>挂单数量</th>
+			    	 		<th>成交数量</th>
+			    	 	</tr>
+			    	 	<#list orderforms as orderform>
+				    	 	<tr<#if orderform_index % 2 == 1> class="splittr"</#if>>
+				    	 		<td align="center">${orderform.virtualcoin.cname}</td>
+				    	 		<td align="center">${orderform.placetime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				    	 		<td align="center">${orderform.buy?string('买入','卖出')}</td>
+				    	 		<td align="center">${orderform.price}</td>
+				    	 		<td align="center">${orderform.count}</td>
+				    	 		<td align="center">${orderform.countoriginal - orderform.count}</td>
+				    	 	</tr>
+				    	 	<tr>
+				    	 		<td colspan="6"><a href="revocation?orderformid=${orderform.id}" class="linkbtn" onclick="return confirm('确定撤销该条挂单吗？')">撤销</a></td>
+				    	 	</tr>
+			    	 	</#list>
+		    	 	</table>
+	                <br />
+	                <#include "../../include/pager.html">
+	    	 	</form>
+			</div>
+		</#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

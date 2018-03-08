@@ -1,0 +1,15 @@
+﻿.middle .banner{overflow:hidden; visibility:hidden; position:relative;}
+.middle .banner .swipe-wrap{overflow:hidden; position:relative;}
+.middle .banner .swipe-wrap a{display:block; float:left; width:100%; position:relative;}
+.middle .banner .swipe-wrap img{width:100%;}
+.middle .banner .point{width:100%; list-style:none; position:absolute; left:0px; bottom:10px; text-align:center;}
+.middle .banner .point li{width:5px; height:5px; background:white; display:inline-table; margin:0px 5px; border:solid 1px #E8E8E8; border-radius:5px;}
+.middle .banner .point li.cur{background:red; border-color:red;}
+.middle .tbarticle{width:100%;}
+.middle .tbarticle marquee{width:100%;}
+.middle .head .title{width:32%;}
+.middle .tablelist th{height:45px;}
+.middle .tablelist td{height:45px;}
+.middle .tablelist td img{width:35px; height:35px;}
+.middle .tablelist td a{padding:3px 10px; background:#FF8C12; boder-radius:3px; color:white;}
+.middle .notice{line-height:30px; margin:20px 0px; color:red; padding:10px;}

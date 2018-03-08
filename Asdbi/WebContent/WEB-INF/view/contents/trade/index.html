@@ -1,0 +1,295 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>${virtualcoin.cname}-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/trade/index${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/math.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/echarts.js"></script>
+<script type="text/javascript" src="/resources/js/kline.js"></script>
+<script type="text/javascript" src="/resources/js/trade/index${device}.js?version=2"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+    	<div class="head<#if device != ''> vhead</#if>">
+    		<#if device == "">
+	    		<span class="title mht cur" onclick="switchtab(this,0)">交易${virtualcoin.cname}</span>
+	    		<span class="title mht" onclick="switchtab(this,1)">了解${virtualcoin.cname}</span>
+    		<#else>
+    			<div class="left"><img src="${virtualcoin.image}" /> ${virtualcoin.cname} | ${virtualcoin.eunit}</div>
+    			<div class="right"><img src="/resources/images/trade/kline.png" onclick="openkline()" /></div>
+    		</#if>
+    		<br class="clear" />
+    	</div>
+    	<div class="tradecoin">
+    		<table class="tradecointable">
+    			<tr>
+    				<td><b><span id="openingprice">${openingprice}</span></b><br />今日开盘价</td>
+    				<td><b><span id="currentprice">${virtualcoin.price}</span></b><br />当前最新价</td>
+    				<#--
+    				<td><b><span id="bottomprice24hour">${bottomprice24hour}</b><br />24小时最低价</td>
+    				<td><b><span id="topprice24hour">${topprice24hour}</span></b><br />24小时最高价</td>
+    				-->
+    				<#if device == ""><td><b><span id="tradecount24hour">${tradecount24hour}</span></b><br />24小时成交量(${virtualcoin.eunit})</td></#if>
+    				<td><b><span id="trademoney24hour">${trademoney24hour?string("0.##")}</span></b><br />24小时成交额(CNT)</td>
+    			</tr>
+    		</table>
+    		<div class="klinepnl"><div id="kline"></div></div>
+    		<div class="klimetimetype">
+    			<a onclick="switchkline(this,'5m')">5分钟线</a>
+    			<a onclick="switchkline(this,'15m')">15分钟线</a>
+    			<a onclick="switchkline(this,'30m')">30分钟线</a>
+    			<a onclick="switchkline(this,'1h')" class="cur">小时线</a>
+    			<a onclick="switchkline(this,'1d')" >日线</a>
+    		</div>
+    		<div id="klineloading" class="klineloading">K线君正在奔跑中...</div>
+   			<br />
+    		<div class="mleftlist">
+    			<div class="mleftlisttrade">
+    				<div class="tradehead wordsbuy">
+						买入${virtualcoin.eunit}
+					</div>
+					<form method="post" action="/trade/dispose" onsubmit="return checkform('buy','买入')">
+					
+						<table cellspacing="0">
+							<tr>
+								<td>最佳买价</td>
+								<td id="bestbuyprice">${bestbuyprice}</td>
+								<td>CNT/${virtualcoin.eunit}</td>
+							</tr>
+							<tr class="splittr">
+								<td>我的余额</td>
+								<td><span id="buybalance"><#if member??>${member.balanceactive}</#if></span></td>
+								<td>CNT</td>
+							</tr>
+							<tr>
+								<td>买入价</td>
+								<td><input type="text" name="price" id="buyprice" maxlength="30" class="tradeinput" placeHolder="请输入买入价" onkeydown="limitfloat(this)" onkeyup="validatenumber(this,'buy')" onpaste="return false" /></td>
+								<td>CNT/${virtualcoin.eunit}</td>
+							</tr>
+							<tr class="splittr">
+								<td>买入量</td>
+								<td><input type="text" name="count" id="buycount" maxlength="30" class="tradeinput" placeHolder="请输入买入量" onkeydown="limitfloat(this)" onkeyup="validatenumber(this,'buy')" onfocus="clactradecount('buy');validatenumber(this,'buy');" onpaste="return false" /></td>
+								<td>${virtualcoin.eunit}</td>
+							</tr>
+							<tr>
+								<td>兑换额</td>
+								<td id="buymoney"></td>
+								<td>CNT</td>
+							</tr>
+							<tr class="splittr">
+								<td>手续费</td>
+								<td id="buyfee"></td>
+								<td>${virtualcoin.eunit}<span style="color:red;">(${virtualcoin.vcoinrate*100}%)</span></td>
+							</tr>
+							<tr>
+								<td>交易密码</td>
+								<td><input type="password" name="tradepassword" id="buytradepassword" value="${tradepassword!}" class="tradeinput" placeHolder="请输入交易密码" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<input type="submit" value="买 入" class="btntrade btntradebuy">
+								</td>
+							</tr>
+						</table>
+						<input type="hidden" name="buy" value="1" />
+						<input type="hidden" name="virtualcoinid" value="${virtualcoin.id}" />
+						<#include "../include/hident.html">
+               			<@s.token />
+					</form>
+    			</div>
+    			<#if device != ""><br /></#if>
+    			<div class="mleftlisttrade"<#if device == ""> style="margin-left:80px;"</#if>>
+    				<div class="tradehead wordssell">
+						卖出${virtualcoin.eunit}
+					</div>
+					<form method="post" action="/trade/dispose" onsubmit="return checkform('sell','卖出')">
+						<table cellspacing="0">
+							<tr>
+								<td>最佳卖价</td>
+								<td id="bestsellprice">${bestsellprice}</td>
+								<td>CNT/${virtualcoin.eunit}</td>
+							</tr>
+							<tr class="splittr">
+								<td>我的余额</td>
+								<td id="sellbalance"><#if myvirtualcoincountactive??>${myvirtualcoincountactive}</#if></td>
+								<td>${virtualcoin.eunit}</td>
+							</tr>
+							<tr>
+								<td>卖出价</td>
+								<td><input type="text" name="price" id="sellprice" maxlength="30" class="tradeinput" placeHolder="请输入卖出价" onkeydown="limitfloat(this)" onkeyup="validatenumber(this,'sell')" onpaste="return false" /></td>
+								<td>CNT/${virtualcoin.eunit}</td>
+							</tr>
+							<tr class="splittr">
+								<td>卖出量</td>
+								<td><input type="text" name="count" id="sellcount" maxlength="30" class="tradeinput" placeHolder="请输入卖出量" onkeydown="limitfloat(this)" onkeyup="validatenumber(this,'sell')" onfocus="clactradecount('sell');validatenumber(this,'sell');" onpaste="return false" /></td>
+								<td>${virtualcoin.eunit}</td>
+							</tr>
+							<tr>
+								<td>兑换额</td>
+								<td id="sellmoney"></td>
+								<td>CNT</td>
+							</tr>
+							<tr class="splittr">
+								<td>手续费</td>
+								<td id="sellfee"></td>
+								<td>CNT<span style="color:red;">(${virtualcoin.moneyrate*100}%)</span></td>
+							</tr>
+							<tr>
+								<td>交易密码</td>
+								<td><input type="password" name="tradepassword" id="selltradepassword" value="${tradepassword!}" class="tradeinput" placeHolder="请输入交易密码" /></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<input type="submit" value="卖 出" class="btntrade btntradesell">
+								</td>
+							</tr>
+						</table>
+						<input type="hidden" name="buy" value="0" />
+						<input type="hidden" name="virtualcoinid" value="${virtualcoin.id}" />
+						<#include "../include/hident.html">
+               			<@s.token />
+					</form>
+    			</div>
+    		</div>
+    		<div class="mrightlist">
+				<table id="currentorderform" class="tablelist tradelist tabbuytrade" cellspacing="0">
+					<tr>
+						<th>档位</th>
+						<th>价格(CNT)</th>
+						<th>数量(${virtualcoin.eunit})</th>
+						<th>合计(CNT)</th>
+					</tr>
+					<#assign dangwei = 0 />
+					<#assign isbuy = true />
+					<#list orderforms as orderform>
+						<#if orderform.buy != isbuy>
+							<#assign isbuy = orderform.buy />
+							<#assign dangwei = 0 />
+						</#if>
+						<#assign dangwei = dangwei + 1 />
+						<tr<#if orderform_index % 2 == 1> class="splittr"</#if> onclick="settradeprice('${orderform.buy?string('sell','buy')}price',${orderform.price})">
+							<td class="words${orderform.buy?string('buy','sell')}">${orderform.buy?string('买','卖')}${dangwei}</td>
+							<td>${orderform.price}</td>
+							<td>${orderform.count}</td>
+							<td>${(orderform.price * orderform.count)?string("0.##")}</td>
+						</tr>
+					</#list>
+				</table>
+    		</div>
+    		<br class="clear" />
+   			<br />
+    		<input type="hidden" id="priceinputdecimalsize" value="${virtualcoin.priceinputdecimalsize}" />
+    		<input type="hidden" id="countinputdecimalsize" value="${virtualcoin.countinputdecimalsize}" />
+    		<input type="hidden" id="countfloor" value="${virtualcoin.countfloor}" />
+    		<input type="hidden" id="vcoinrate" value="${virtualcoin.vcoinrate}" />
+    		<input type="hidden" id="moneyrate" value="${virtualcoin.moneyrate}" />
+    		<input type="hidden" id="moneydecimalsize" value="${virtualcoin.moneydecimalsize}" />
+    		<input type="hidden" id="virtualcoinid" value="${virtualcoin.id}" />
+	    	<input type="hidden" id="trading" value="${virtualcoin.trading?string(1,0)}" />
+	    	<#if member??>
+		    	<#if mybuyorderforms?size gt 0 || mysellorderforms?size gt 0>
+			    	<div class="myorderform">
+			    		<div class="head">
+							<span class="title mht cur">我的委托挂单</span>
+							<br class="clear" />
+						</div>
+						<div class="myorderformpanel">
+							<table class="tablelist tabselltrade" cellspacing="0">
+								<tr>
+									<th>类型</th>
+									<th>价格(CNT)</th>
+									<th>数量(${virtualcoin.eunit})</th>
+									<th>成交数(${virtualcoin.eunit})</th>
+									<#if device == ""><th>挂单时间</th></#if>
+									<th>操作</th>
+								</tr>
+								<#list mybuyorderforms as orderform>
+									<tr<#if orderform_index % 2 == 1> class="splittr"</#if>>
+										<td class="wordsbuy">买</td>
+										<td>${orderform.price}</td>
+										<td>${orderform.count}</td>
+										<td>${orderform.countoriginal - orderform.count}</td>
+										<#if device == ""><td>${orderform.placetime?string('MM-dd HH:mm:ss')}</td></#if>
+										<td><a class="linkbtn" onclick="revocation(${orderform.id})">撤销</a></td>
+									</tr>
+								</#list>
+								<#assign mysellorderformrowindex = ((mybuyorderforms?size % 2 == 0)?string('1','0'))?number />
+								<#list mysellorderforms as orderform>
+									<tr<#if orderform_index % 2 == mysellorderformrowindex> class="splittr"</#if>>
+										<td class="wordssell">卖</td>
+										<td>${orderform.price}</td>
+										<td>${orderform.count}</td>
+										<td>${orderform.countoriginal - orderform.count}</td>
+										<#if device == ""><td>${orderform.placetime?string('MM-dd HH:mm:ss')}</td></#if>
+										<td><a class="linkbtn" onclick="revocation(${orderform.id})">撤销</a></td>
+									</tr>
+								</#list>
+							</table>
+						</div>
+			    	</div>
+			    	<br />
+		    	</#if>
+	    	</#if>
+    		<div class="lasttraderecord">
+    			<div class="head">
+					<span class="title mht cur" style="width:1${(device == '')?string('6','2')}0px;"<#if member??> onclick="swtichtbtrade(this,'lately',0)"</#if>>网站最近成交记录</span>
+					<#if member??><span class="title mht" style="width:1${(device == '')?string('6','2')}0px;" onclick="swtichtbtrade(this,'lately',1)">我的最近成交记录</span></#if>
+					<br class="clear" />
+				</div>
+    			<table id="latelytraderecords" class="tablelist lately" cellspacing="0">
+    				<tr>
+    					<th>时间</th>
+    					<th>类型</th>
+    					<th>成交价<#if device == "">(CNT/${virtualcoin.eunit})</#if></th>
+    					<th>成交量<#if device == "">(${virtualcoin.eunit})</#if></th>
+    					<th>合计(CNT)</th>
+    				</tr>
+    				<#list latelytraderecords as traderecord>
+    					<tr<#if traderecord_index % 2 == 1> class="splittr"</#if>>
+							<td>${traderecord.tradetime?string('HH:mm:ss')}</td>
+							<td class="words${traderecord.buy?string('buy','sell')}">${traderecord.buy?string("买入","卖出")}</td>
+							<td>${traderecord.price}</td>
+							<td>${traderecord.count}</td>
+							<td>${(traderecord.price * traderecord.count)?string("0.##")}</td>
+						</tr>
+    				</#list>
+    			</table>
+    			<#if member??>
+	    			<table class="tablelist lately" cellspacing="0" style="display:none;">
+						<tr>
+							<th>时间</th>
+							<th>类型</th>
+							<th>成交价(CNT/${virtualcoin.eunit})</th>
+							<th>成交量(${virtualcoin.eunit})</th>
+						</tr>
+						<#list mylatelytraderecords as traderecord>
+							<tr<#if traderecord_index % 2 == 1> class="splittr"</#if>>
+								<td>${traderecord.tradetime?string('HH:mm:ss')}</td>
+								<td class="words${(traderecord.memberByBuymemberId.id == member.id)?string('buy','sell')}">${(traderecord.memberByBuymemberId.id == member.id)?string("买入","卖出")}</td>
+								<td>${traderecord.price}</td>
+								<td>${traderecord.count}</td>
+							</tr>
+						</#list>
+					</table>
+				</#if>
+    		</div>
+    	</div>
+    	<div class="tradecoin coindescription">
+    		${virtualcoin.description!}
+    	</div>
+    </div>
+    <div id="tempdata"></div>
+    <#include "../include/bottom.html">
+</body>
+</html>

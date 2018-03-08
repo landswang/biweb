@@ -1,0 +1,12 @@
+.middle .middleregister{padding:10px; margin-top:10px;}
+.middle .middleregister .registertitle{font-size:30px; font-weight:bold; color:black; text-align:center;}
+.middle .middleregister table{width:100%;}
+.middle .middleregister table td{padding:4px 0px;}
+.middle .middleregister table td.registertitle{font-size:1.2rem; font-weight:bold; color:black;}
+.middle .middleregister table td input{vertical-align:sub;}
+.middle .middleregister table td input[type=text]{width:180px;}
+.middle .middleregister table td input[type=password]{width:180px;}
+.middle .middleregister table td input.vcode{width:80px;}
+.middle .middleregister table td img{vertical-align:middle;}
+.middle .middleregister table td a.sendmobilevalidate{color:white;}
+.middle .middleregister table td .subbtn{display:block; width:120px; height:40px; line-height:40px; text-align:center; border-radius:5px; color:white; background:#FF4400; border:none;}

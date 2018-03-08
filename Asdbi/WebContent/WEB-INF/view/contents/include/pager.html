@@ -1,0 +1,21 @@
+<div class="pager">
+	共${recordcount}条数据
+	<#if pagecount gt 1>
+		<a<#if pageindex gt 1> onclick="setpage(this,1)"</#if>>首页</a>
+		<a<#if pageindex gt 1> onclick="setpage(this,${(pageindex == 1)?string(1,pageindex-1)})"</#if>>上一页</a>
+		<#if device == "">
+			<#assign pagestart = (pageindex lte 5 || pagecount lte 10)?string(1,((pagecount-pageindex lt 5)?string(pageindex-(8-(pagecount-pageindex)),pageindex-4)?number))?number>
+			<#assign pagelength = (pagecount-pageindex lt (8-(pageindex-pagestart)))?string(pagecount,pageindex+(8-(pageindex-pagestart)))?number>
+	        <#list pagestart..pagelength as i>
+	        	 <a<#if i != pageindex> onclick="setpage(this,${i})"<#else> class="pcs"</#if>">${i}</a> 
+	        </#list>
+	    <#else>
+	    	${pageindex}
+        </#if>
+		<a<#if pageindex lt pagecount> onclick="setpage(this,${(pageindex == pagecount)?string(pagecount,pageindex+1)})"</#if>>下一页</a>
+		<a<#if pageindex lt pagecount> onclick="setpage(this,${pagecount})"</#if>>尾页</a>
+	</#if>
+	共${pagecount}页
+	<input type="hidden" name="pageindex" id="pageindex" value="${pageindex}" />
+</div>
+<input type="hidden" name="callbackparams" value="${callbackparams!}" />

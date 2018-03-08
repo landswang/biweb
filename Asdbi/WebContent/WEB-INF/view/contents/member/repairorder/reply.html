@@ -1,0 +1,104 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/ueditor/config.js"></script>
+<script type="text/javascript" src="/resources/ueditor/ueditor.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="./" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>工单解答<#if repairorder??><a href="complate?repairorderid=${repairorder.id}" class="logout" onclick="return confirm('确定完结此工单')">完结</a></#if></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>工单解答</div>
+	    		<div class="middlerightcont">
+		    		<#if repairorder??>
+			    		<table class="tools">
+			    			<tr>
+			    				<td align="right">
+			    					<a href="complate?repairorderid=${repairorder.id}" class="linkbtn insert" onclick="return confirm('确定完结此工单')">完结工单</a>
+			    				</td>
+			    			</tr>
+				    	</table>
+		    		</#if>
+			    	<#if repairorder??>
+				    	<h1>${repairorder.title}</h1>
+						<table cellspacing="0" class="tablelist">
+				    	 	<#list repairorderreplys as repairorderreply>
+					    	 	<tr<#if repairorderreply_index % 2 == 1> class="splittr"</#if>>
+					    	 		<td width="100" valign="top" style="padding:10px;">
+						    	 		${(repairorderreply.admin??)?string('客服','自己')}<br />
+						    	 		${repairorderreply.replytime?string('HH:mm:ss')}
+					    	 		</td>
+					    	 		<td valign="top" style="padding:10px; text-align:left; border-left:solid 1px #E8E8E8">
+					    	 			${repairorderreply.contents}
+					    	 		</td>
+					    	 	</tr>
+				    	 	</#list>
+			    	 	</table>
+					    <br class="dashedstyle" />
+				    </#if>
+				    <form action="replydo" method="post">
+				    	<#if !repairorder??>
+				    		<input name="title" id="title" required placeholder="这里简略输入标题" style="width:200px;" maxlength="40" /><br />
+				    	</#if>
+				    	<#if !repairorder?? || repairorder.repairorderState.id lt 4>
+					    	<textarea name="contents" id="contents" class="ueditor"></textarea><br />
+					    	<input type="submit" class="linkbtn" value="${(repairorder??)?string('回复','提交')}" />
+					    	<input type="hidden" name="repairorderid" value="<#if repairorder??>${repairorder.id}<#else>0</#if>" />
+				    	</#if>
+				    </form>
+		    	</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+	    	<div class="middlecont">
+	    		<#if repairorder??>
+			    	<h1>${repairorder.title}</h1>
+					<table cellspacing="0" class="tablelist">
+			    	 	<#list repairorderreplys as repairorderreply>
+				    	 	<tr<#if repairorderreply_index % 2 == 1> class="splittr"</#if>>
+				    	 		<td width="100" valign="top" style="padding:10px;">
+						    	 	${(repairorderreply.admin??)?string('客服','自己')}<br />
+					    	 		${repairorderreply.replytime?string('HH:mm:ss')}
+				    	 		</td>
+				    	 		<td valign="top" style="padding:10px; text-align:left; border-left:solid 1px #E8E8E8">
+				    	 			${repairorderreply.contents}
+				    	 		</td>
+				    	 	</tr>
+			    	 	</#list>
+		    	 	</table>
+				    <br class="dashedstyle" />
+			    </#if>
+			    <form action="replydo" method="post">
+			    	<#if !repairorder??>
+			    		<input name="title" id="title" required placeholder="这里简略输入标题" style="width:200px;" maxlength="40" /><br />
+			    	</#if>
+				    <#if !repairorder?? || repairorder.repairorderState.id lt 4>
+				    	<textarea name="contents" id="contents" class="ueditor"></textarea><br />
+				    	<input type="submit" class="linkbtn" value="${(repairorder??)?string('回复','提交')}" />
+				    	<input type="hidden" name="repairorderid" value="<#if repairorder??>${repairorder.id}<#else>0</#if>" />
+			    	</#if>
+			    </form>
+	    	</div>
+		</#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

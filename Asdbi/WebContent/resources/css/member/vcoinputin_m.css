@@ -1,0 +1,7 @@
+﻿.middlebottom .curcoinimg{width:18px; height:18px; margin-right:5px;}
+.middlebottom .othercoins{position:absolute; left:10px; top:40px; width:90vw; background:#F8FBFF; padding:10px; line-height:30px; display:none; border:solid 1px #A9B6D6;}
+.middlebottom .othercoins a{width:80px; float:left; text-align:left; margin:5px 0px 10px 20px;}
+.middlebottom .othercoins a:hover{color:##FF8C12;}
+.middlebottom .othercoins a img{width:20px; height:20px; vertical-align:middle; margin-right:5px;}
+.middlebottom .walletaddress{background:#BDE5F5; padding:10px; font-size:15px; margin-top:10px;}
+.middlerightcont .walletaddress *{font-size:15px;}

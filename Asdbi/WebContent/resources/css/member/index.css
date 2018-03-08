@@ -1,0 +1,6 @@
+﻿.middle .middleright .middlerightcont{padding:30px; line-height:28px; font-size:14px;}
+.middle .middleright .middlerightcont .memberinfo span{color:red; margin:0px 2px;}
+.middle .middleright .middlerightcont .memberinfo img.face{width:60px; height:60px; float:left; margin-right:10px;}
+.middle .middleright .middlerightcont .memberinfo .attestationed{color:#02CD1A;}
+.middle .middleright .middlerightcont .memberinfo .noattestation{color:red;}
+.middle .middleright .middlerightcont .totalbalance{font-weight:bold; color:#ff7733;}

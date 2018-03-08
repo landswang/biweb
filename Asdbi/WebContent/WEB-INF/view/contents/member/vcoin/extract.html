@@ -1,0 +1,202 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<#if device != ""><link href="/resources/css/member/vcoin_m.css" type="text/css" rel="stylesheet"></#if>
+<link href="/resources/css/member/vcoinextract${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/math.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/vcoinextract.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>虚拟币转入与转出<a href="../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>虚拟币转出</div>
+    			<div class="middlerightcont">
+    				<div class="conttabhead">
+    					<span>在线转出</span>
+    					<a href="extractrecord">转出记录</a>
+    				</div>
+    				<br />
+					<#if extractvirtualcoins.size() gt 0>
+	    				<a onclick="openothercoins(event)">
+	    					<img src="${membervirtualcoin.virtualcoin.image}" class="curcoinimg" width="18" height="18" style="vertical-align:middle;" /> ${membervirtualcoin.virtualcoin.cname} | ${membervirtualcoin.virtualcoin.eunit}
+	    					<img src="/resources/images/main/down_s_b.png" />
+	    				</a>
+	    				<div class="othercoins">
+	    					<#list extractvirtualcoins as virtualcoin>
+								<a href="extract?virtualcoinid=${virtualcoin.id}"><img src="${virtualcoin.image}" />${virtualcoin.cname}</a>
+							</#list>
+						</div>
+						&nbsp;<span style="color:#FF8400;">←选择</span>
+	    				&nbsp;&nbsp;&nbsp;&nbsp;可用${membervirtualcoin.virtualcoin.cname}：<span id="countactive">${membervirtualcoin.countactive}</span>&nbsp;&nbsp;&nbsp;&nbsp;冻结${membervirtualcoin.virtualcoin.cname}：${membervirtualcoin.countdisable}
+	    				<br /><br />
+	    				<#if membervirtualcoin.virtualcoin.canextract>
+		    				<form method="post" action="extractdo" onsubmit="return checkform()">
+			    				<table class="tableedit">
+				                    <tr>
+				                    	<td>钱包地址：</td>
+				                    	<td><input type="text" name="address" id="address" style="width:300px;" /> <span style="color:red;">*</span></td>
+				                    </tr>
+				                    <tr>
+				                    	<td>转出数量：</td>
+				                    	<td>
+				                    	<input type="text" name="count" id="count" maxlength="9" onkeydown="limitfloat(this)" onkeyup="clacactualcount(this)" onchange="clacactualcount(this)" /> <span style="color:red;">*</span>
+				                    	&nbsp;
+				                    	实际到账：<span id="countactual">0</span>
+				                    	</td>
+				                    </tr>
+				                    <tr>
+				                    	<td>交易密码：</td>
+				                    	<td><input type="password" name="tradepassword" id="tradepassword" /> <span style="color:red;">*</span></td>
+				                    </tr>
+				                    <tr>
+				                    	<td>短信验证码：</td>
+				                    	<td>
+				                    		<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" /> <span style="color:red;">*</span>
+			                    			<a class="linkbtn sendmobilevalidate" onclick="sendmobilevalidate()">发送短信</a>
+				                    	</td>
+				                    </tr>
+				                    <tr>
+				                    	<td>备注：</td>
+				                    	<td><input type="text" name="remark" maxlength="30" /></td>
+				                    </tr>
+				   					<tr>
+				   						<td></td>
+					   					<td>
+					   						<br />
+					   						<input type="submit" value="提交" class="subbtn" />
+					   					</td>
+					   				</tr>
+		               			</table>
+		               			<input type="hidden" name="virtualcoinid" value="${membervirtualcoin.virtualcoin.id}" />
+	                			<#include "../../include/hident.html">
+	                			<@s.token />
+		        			</form>
+		    				<div class="notice">
+		    					转出说明：<br />
+		    					1. ${membervirtualcoin.virtualcoin.cname}的提币下限为： <span id="extractfloor">${membervirtualcoin.virtualcoin.extractfloor}</span> ，上限为： <span id="extractupper">${membervirtualcoin.virtualcoin.extractupper}</span> ，<b>手续费率为：<span id="extractrate">${membervirtualcoin.virtualcoin.extractrate}</span></b>，<b>手续下限为：<span id="extractfeefloor">${membervirtualcoin.virtualcoin.extractfeefloor}</span></b>；<br />
+								2. 为了安全，转出 <span>${membervirtualcoin.virtualcoin.cname}</span> 是由人工处理，您提交后，我们会在短时间内为您处理；<br />
+								3. ${membervirtualcoin.virtualcoin.cname}转出保留<span id="extractdecimalsize">${membervirtualcoin.virtualcoin.extractdecimalsize}</span>位小数<#if membervirtualcoin.virtualcoin.extractdecimalsize == 0>，<b>仅支持整数到账，请自行计算最佳转出数量</b></#if>；
+								<#if membervirtualcoin.virtualcoin.extractexplain??>
+									<br />4. <b>${membervirtualcoin.virtualcoin.extractexplain}</b>
+								</#if>
+		    				</div>
+	    				<#else>
+	    					<br />
+	    					<div class="notice" style="font-size:18px;">对不起，${membervirtualcoin.virtualcoin.cname}暂不支持提币，请在左上方选择其它币种；</div>
+	    				</#if>
+    				<#else>
+    					<br />
+    					<div class="notice" style="font-size:18px;">对不起，您暂无虚拟币或者可用币余额为0，所以无法进行该操作；</div>
+    				</#if>
+	    		</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+    		<div class="middletop">
+				<a href="putin">在线转入</a>
+				<a href="putinrecord">转入记录</a>
+				<a class="cur">在线转出</a>
+				<a href="extractrecord">转出记录</a>
+			</div>
+ 			<div class="middlebottom">
+ 				<#if extractvirtualcoins.size() gt 0>
+    				<a onclick="openothercoins(event)">
+    					<img src="${membervirtualcoin.virtualcoin.image}" class="curcoinimg" width="18" height="18" style="vertical-align:middle;" /> ${membervirtualcoin.virtualcoin.cname} | ${membervirtualcoin.virtualcoin.eunit}
+    					<img src="/resources/images/main/down_s_b.png" />
+    				</a>
+    				<br /><br />
+    				<div class="othercoins">
+    					<#list extractvirtualcoins as virtualcoin>
+							<a href="extract?virtualcoinid=${virtualcoin.id}"><img src="${virtualcoin.image}" />${virtualcoin.cname}</a>
+						</#list>
+					</div>
+    				可用${membervirtualcoin.virtualcoin.cname}：<span id="countactive">${membervirtualcoin.countactive}</span>&nbsp;&nbsp;&nbsp;&nbsp;冻结${membervirtualcoin.virtualcoin.cname}：${membervirtualcoin.countdisable}
+    				<br /><br />
+	    			<#if membervirtualcoin.virtualcoin.canextract>
+	    				<form method="post" action="extractdo" onsubmit="return checkform()">
+		    				<table class="tableedit">
+			                    <tr>
+			                    	<td>钱包地址：</td>
+			                    	<td><input type="text" name="address" id="address" style="width:200px;" /> <span style="color:red;">*</span></td>
+			                    </tr>
+			                    <tr>
+			                    	<td>转出数量：</td>
+			                    	<td>
+			                    		<input type="text" name="count" id="count" maxlength="9" onkeydown="limitfloat(this)" onkeyup="clacactualcount(this)" /> <span style="color:red;">*</span>
+				                    	<br />
+				                    	实际到账：<span id="countactual">0</span>
+			                    	</td>
+			                    </tr>
+			                    <tr>
+			                    	<td>交易密码：</td>
+			                    	<td><input type="password" name="tradepassword" id="tradepassword" /> <span style="color:red;">*</span></td>
+			                    </tr>
+			                    <tr>
+			                    	<td>短信验证码：</td>
+			                    	<td>
+			                    		<input type="text" name="mobilevcode" id="mobilevcode" maxlength="6" /> <span style="color:red;">*</span>
+			                    		<a class="linkbtn sendmobilevalidate" onclick="sendmobilevalidate()">发送短信</a>
+			                    	</td>
+			                    </tr>
+			                    <tr>
+			                    	<td>备注：</td>
+			                    	<td><input type="text" name="remark" maxlength="30" /></td>
+			                    </tr>
+			   					<tr>
+			   						<td></td>
+				   					<td>
+				   						<br />
+				   						<input type="submit" value="提交" class="subbtn" />
+				   					</td>
+				   				</tr>
+	               			</table>
+	               			<input type="hidden" name="virtualcoinid" value="${membervirtualcoin.virtualcoin.id}" />
+	               			<#include "../../include/hident.html">
+	               			<@s.token />
+	        			</form>
+	    				<div class="notice">
+	    					转出说明：<br />
+	    					1. ${membervirtualcoin.virtualcoin.cname}的提币下限为： <span id="extractfloor">${membervirtualcoin.virtualcoin.extractfloor}</span> ，上限为： <span id="extractupper">${membervirtualcoin.virtualcoin.extractupper}</span> ，<b>手续费率为：<span id="extractrate">${membervirtualcoin.virtualcoin.extractrate}</span></b>，<b>手续下限为：<span id="extractfeefloor">${membervirtualcoin.virtualcoin.extractfeefloor}</span></b>；<br />
+							2. 为了安全，转出 <span>${membervirtualcoin.virtualcoin.cname}</span> 是由人工处理，您提交后，我们会在短时间内为您处理；<br />
+							3. ${membervirtualcoin.virtualcoin.cname}转出保留<span id="extractdecimalsize">${membervirtualcoin.virtualcoin.extractdecimalsize}</span>位小数<#if membervirtualcoin.virtualcoin.extractdecimalsize == 0>，<b>仅支持整数到账，请自行计算最佳转出数量</b></#if>；
+							<#if membervirtualcoin.virtualcoin.extractexplain??>
+								<br />4. <b>${membervirtualcoin.virtualcoin.extractexplain}</b>
+							</#if>
+	    				</div>
+    				<#else>
+    					<br />
+    					<div class="notice">对不起，${membervirtualcoin.virtualcoin.cname}暂不支持提币，请在上方选择其它币种；</div>
+    				</#if>
+   				<#else>
+   					<br />
+   					<div class="notice">对不起，您暂无虚拟币或者可用币余额为0，所以无法进行该操作；</div>
+   				</#if>
+      		</div>
+	    </#if>
+	    <#if membervirtualcoin??>
+	    	<input type="hidden" id="walletaddress" value="<#if membervirtualcoin.walletaddress??>${escapeHtml(membervirtualcoin.walletaddress)}</#if>">
+	    	<input type="hidden" id="addressregexp" value="${membervirtualcoin.virtualcoin.addressregexp!}">
+	    </#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

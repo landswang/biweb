@@ -1,0 +1,18 @@
+<a class="first" href="/member/">财务管理</a>
+<div class="second">
+	<a<#if member.name?? && member.tradepassword??> href="/member/vcoin/putin"<#else> onclick="alert('请先完成交易密码设置和实名认证才能使用该功能哟！')"</#if><#if requestURI?contains("/member/vcoin/putin")> class="cur"</#if>>虚拟币转入</a>
+	<a<#if member.name?? && member.tradepassword??>  href="/member/vcoin/extract"<#else> onclick="alert('请先完成交易密码设置和实名认证才能使用该功能哟！')"</#if><#if requestURI?contains("/member/vcoin/extract")> class="cur"</#if>>虚拟币转出</a>
+	<a<#if member.name?? && member.tradepassword??> href="/member/orderform/"<#else> onclick="alert('请先完成交易密码设置和实名认证才能使用该功能哟！')"</#if><#if requestURI?contains("/member/orderform/")> class="cur"</#if>>挂单管理</a>
+	<a<#if member.name?? && member.tradepassword??> href="/member/record/trade"<#else> onclick="alert('请先完成交易密码设置和实名认证才能使用该功能哟！')"</#if><#if requestURI?contains("/member/record/trade")> class="cur"</#if>>交易记录</a>
+	<a<#if member.name?? && member.tradepassword??> href="/member/record/rmb"<#else> onclick="alert('请先完成交易密码设置和实名认证才能使用该功能哟！')"</#if><#if requestURI?contains("/member/record/rmb")> class="cur"</#if>>账流水记录</a>
+	<a<#if member.name?? && member.tradepassword??> href="/member/record/vcoin"<#else> onclick="alert('请先完成交易密码设置和实名认证才能使用该功能哟！')"</#if><#if requestURI?contains("/member/record/vcoin")> class="cur"</#if>>币流水记录</a>
+</div>
+<div class="first">个人信息</div>
+<div class="second">
+	<a href="/member/account/"<#if requestURI?contains("/member/account/")> class="cur"</#if>>个人资料</a>
+	<a href="/member/password/login"<#if requestURI?contains("/member/password/")> class="cur"</#if>>密码修改</a>
+	<a href="/member/certification/normal"<#if requestURI?contains("/member/certification/")> class="cur"</#if>>实名认证</a>
+	<a href="/member/bankcard/"<#if requestURI?contains("/member/bankcard/")> class="cur"</#if>>银行卡号</a>
+	<a href="/member/invite/"<#if requestURI?contains("/member/invite/")> class="cur"</#if>>邀请好友</a>
+	<a href="/member/repairorder/"<#if requestURI?contains("/member/repairorder/")> class="cur"</#if>>工单解答</a>
+</div>

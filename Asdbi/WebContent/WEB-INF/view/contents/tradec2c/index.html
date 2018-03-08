@@ -1,0 +1,183 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>C2C-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/tradec2c/index${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/math.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/tradec2c/index.js?version=2"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+    	<div class="head<#if device != ''> vhead</#if>">
+    		<span class="title mht cur">交易CNT</span>
+    		<br class="clear" />
+    	</div>
+    	<div class="tradecoin">
+   			<div class="mleftlisttrade">
+   				<div class="tradehead wordsbuy">
+					买入CNT
+				</div>
+				<form method="post" action="dispose" onsubmit="return checkform('buy','买入')">
+					<table cellspacing="0">
+						<tr class="splittr">
+							<td>我的余额</td>
+							<td><#if member??>${member.balanceactive}</#if></td>
+							<td>CNT</td>
+						</tr>
+						<tr>
+							<td>买入价</td>
+							<td><input type="text" name="price" id="buyprice" class="tradeinput" value="${rmbputinsetup.price}" disabled /></td>
+							<td>CNY</td>
+						</tr>
+						<tr class="splittr">
+							<td>买入量</td>
+							<td><input type="text" name="count" id="buycount" maxlength="6" class="tradeinput"  placeHolder="请输入买入量" onkeydown="limitfloat(this)" onkeyup="validatenumber(this,'buy')" onpaste="return false" /></td>
+							<td>CNT</td>
+						</tr>
+						<tr>
+							<td>兑换额</td>
+							<td id="buymoney"></td>
+							<td>CNY</td>
+						</tr>
+						<tr>
+							<td>交易密码</td>
+							<td><input type="password" name="tradepassword" id="buytradepassword" value="${tradepassword!}" class="tradeinput" placeHolder="请输入交易密码" /></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<input type="submit" value="买 入" class="btntrade btntradebuy">
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" name="buy" value="1" />
+					<#include "../include/hident.html">
+              		<@s.token />
+				</form>
+   			</div>
+   			<#if device != ""><br /></#if>
+   			<div class="mleftlisttrade"<#if device == ""> style="margin-left:80px;"</#if>>
+   				<div class="tradehead wordssell">
+					卖出CNT
+				</div>
+				<form method="post" action="dispose" onsubmit="return checkform('sell','卖出')">
+					<table cellspacing="0">
+						<tr class="splittr">
+							<td>我的余额</td>
+							<td><span id="sellbalance"><#if member??>${member.balanceactive}</#if></span></td>
+							<td>CNT</td>
+						</tr>
+						<tr>
+							<td>卖出价</td>
+							<td><input type="text" name="price" id="sellprice" class="tradeinput" value="${rmbextractsetup.price}" disabled /></td>
+							<td>CNY</td>
+						</tr>
+						<tr class="splittr">
+							<td>卖出量</td>
+							<td><input type="text" name="count" id="sellcount" maxlength="6" class="tradeinput" placeHolder="请输入卖出量" onkeydown="limitfloat(this)" onkeyup="validatenumber(this,'sell')" onpaste="return false" /></td>
+							<td>CNT</td>
+						</tr>
+						<tr>
+							<td>兑换额</td>
+							<td id="sellmoney"></td>
+							<td>CNY</td>
+						</tr>
+						<tr>
+							<td>交易密码</td>
+							<td><input type="password" name="tradepassword" id="selltradepassword" value="${tradepassword!}" class="tradeinput" placeHolder="请输入交易密码" /></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<input type="submit" value="卖 出" class="btntrade btntradesell">
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" name="buy" value="0" />
+					<#include "../include/hident.html">
+              		<@s.token />
+				</form>
+    		</div>
+    		<br class="clear" />
+   			<br />
+    		<input type="hidden" id="countinputdecimalsize" value="2" />
+    		<input type="hidden" id="buycountfloor" value="${rmbputinsetup.floor}" />
+    		<input type="hidden" id="sellcountupper" value="${rmbextractsetup.upper}" />
+    		<input type="hidden" id="sellcountfloor" value="${rmbextractsetup.floor}" />
+    		<input type="hidden" id="moneydecimalsize" value="2" />
+	    	<#if member??>
+	    		<#if rmbputinrecords?size gt 0 || rmbextractrecords?size gt 0>
+		    	<div class="lasttraderecord">
+	    			<div class="head">
+						<span class="title mht cur" <#if member??> onclick="swtichtbtrade(this,'lately',0)"</#if>>我的买入记录</span>
+						<#if member??><span class="title mht" onclick="swtichtbtrade(this,'lately',1)">我的卖出记录</span></#if>
+						<br class="clear" />
+					</div>
+	    			<table id="latelytraderecords" class="tablelist lately" cellspacing="0">
+	    				<tr>
+							<th>买入时间</th>
+							<th>银行卡号</th>
+							<th>订单数量(CNT)</th>
+							<th>实际到账(CNY)</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+						<#list rmbputinrecords as rmbputinrecord>
+				        	<tr<#if rmbputinrecord_index % 2 == 1> class="splittr"</#if>>
+				                <td align="center">${rmbputinrecord.putintime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				                <td align="center">${rmbputinrecord.cardtype} ${rmbputinrecord.cardnumber?substring(0,4)}****${rmbputinrecord.cardnumber?substring(rmbputinrecord.cardnumber?length-4,rmbputinrecord.cardnumber?length)}</td>
+				                <td align="center">${rmbputinrecord.money}</td>
+				                <td align="center">${rmbputinrecord.moneyactual}</td>
+				                <td align="center">${rmbputinrecord.rmbputinrecordState.name}</td>
+				                <td align="center">
+				                	<#if rmbputinrecord.rmbputinrecordState.id == 1>
+				                		<a href="putinrevocation?rmbputinrecordid=${rmbputinrecord.id}" onclick="return confirm('确定撤销该条记录吗？')" class="linkbtn">撤销</a>
+				                	</#if>
+				                </td>
+				        	</tr>
+				        </#list>
+	    			</table>
+	    			<table class="tablelist lately" cellspacing="0" style="display:none;">
+						<tr>
+							<th>时间</th>
+							<th>订单数量(CNT)</th>
+							<th>实际到账(CNY)</th>
+							<th>银行卡号</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+						<#list rmbextractrecords as rmbextractrecord>
+				        	<tr<#if rmbextractrecord_index % 2 == 1> class="splittr"</#if>>
+				                <td align="center">${rmbextractrecord.extracttime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				                <td align="center">${rmbextractrecord.money}</td>
+		                		<td align="center">${rmbextractrecord.moneyactual}</td>
+				                <td align="center">${rmbextractrecord.cardtype} ${rmbextractrecord.cardnumber?substring(0,4)}****${rmbextractrecord.cardnumber?substring(rmbextractrecord.cardnumber?length-4,rmbextractrecord.cardnumber?length)}</td>
+				                <td align="center">${rmbextractrecord.rmbextractrecordState.name}</td>
+				                <td align="center">
+				                	<#if rmbextractrecord.rmbextractrecordState.id == 1>
+				                		<a href="extractrevocation?rmbextractrecordid=${rmbextractrecord.id}" onclick="return confirm('确定撤销该条记录吗？')" class="linkbtn">撤销</a>
+				                	<#elseif rmbextractrecord.rmbextractrecordState.id == 4>
+				                		<a onclick="alert('${rmbextractrecord.checkdtcause!}')" class="linkbtn">原因</a>
+				                	</#if>
+				                </td>
+				        	</tr>
+				        </#list>
+					</table>
+	    		</div>
+		    	<br />
+		    	</#if>
+	    	</#if>
+    	</div>
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>新币投票-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/vote/apply${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/vote/apply.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+   		<div class="head">
+   			<a href="./" class="title mht">新币投票</a>
+   			<a href="record" class="title mht">投票记录</a>
+   			<a class="title mht cur">上币申请</a>
+   			<br class="clear" />
+   		</div>
+   		<div class="middlebottom">
+	   		<form method="post" action="applydispose" class="apply" onsubmit="return checkform()">
+	   			<table>
+	   				<tr>
+	   					<td width="80">币种名称：</td>
+	   					<td>
+	   						<input type="text" name="vcoinname" id="vcoinname" /> <span style="color:red;">*</span>
+	   						<span style="color:gray;">（中文名称+英文简称）</span>
+	   					</td>
+	   				</tr>
+	   				<tr>
+	   					<td>开发团队：</td>
+	   					<td>
+	   						<input type="text" name="teamname" id="teamname" /> <span style="color:red;">*</span>
+	   						<span style="color:gray;">（公司名称或开发团队名称）</span>
+	   					</td>
+	   				</tr>
+	   				<tr>
+	   					<td>联系电话：</td>
+	   					<td>
+	   						<input type="text" name="telphone" id="telphone" onkeydown="limitint(this)" /> <span style="color:red;">*</span>
+	   						<span style="color:gray;">（开发团队座机号码或负责人手机号码）</span>
+	   					</td>
+	   				</tr>
+	   				<tr>
+	   					<td>币种简介：</td>
+	   					<td><textarea rows="8" name="description"></textarea></td>
+	   				</tr>
+	   				<tr>
+	   					<td></td>
+	   					<td>更多资料请发送到邮箱：904050921@qq.com，并于邮件标题注明“某某某币上币合作申请资料”。</td>
+	   				</tr>
+	   				<tr>
+	   					<td></td>
+	   					<td><br /><input type="submit" value=" 提交 " /></td>
+	   				</tr>
+	   			</table>
+	   			<br /><br />
+	   			申请说明：申请一次需要使用300枚什币股，如果未通过审核将返还300枚什币股。
+	   			<@s.token />
+	   		</form>
+	   		<br />
+	   		<b>申请记录</b><br />
+	   		<table class="tablelist" cellspacing="0">
+	    		<tr>
+	    			<th>币种名称</th>
+	    			<th>开发团队</th>
+	    			<th>联系电话</th>
+	    			<th>提交时间</th>
+	    			<th>状态</th>
+	    			<th>操作</th>
+	    		</tr>
+	   			<#list vcoinapplys as vcoinapply>
+					<tr<#if vcoinapply_index % 2 == 1> class="splittr"</#if>>
+						<td>${vcoinapply.vcoinname}</td>
+						<td>${vcoinapply.teamname}</td>
+						<td>${vcoinapply.telphone}</td>
+						<td>${vcoinapply.applytime?string('yyyy-MM-dd')}</td>
+						<td>${vcoinapply.vcoinapplyState.name}</td>
+						<td>
+							<#if vcoinapply.vcoinapplyState.id == 3>
+								<a class="linkbtn" onclick="alert('${vcoinapply.checkdtcause!}')">原因</a>
+							</#if>
+						</td>
+					</tr>
+				</#list>
+	   		</table>
+   		</div>
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

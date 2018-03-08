@@ -1,0 +1,43 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>C2C-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/tradec2c/putin${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+    	<div class="head<#if device != ''> vhead</#if>">
+    		<span class="title mht cur">交易CNT</span>
+    		<br class="clear" />
+    	</div>
+    	<div class="orderform">
+    		<div class="orderformpnl">
+	   			<b style="color:#ff8a00; font-size:16px;">汇款订单</b><br /><br />
+				1.请按提示信息向该卖家汇款；<br />
+				收款人户名：<b style="font-size:20px;">陈绍宇</b><br />
+				收款人账号：<b style="font-size:20px;">6214 8502 8716 4732</b>(请仔细核对收款账号)<br />
+				银行开户行：招商银行 成都蜀汉路支行<br />
+				汇款时备注内容：“<b style="color:red; font-size:20px;">${unicode}</b>”(请务必填写，否则无法入账，且只能使用一次，切勿重复使用！)<br />
+				转账金额：<span style="color:red;">${money}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+				实际到账：${moneyactual}<br /><br />
+				2.卖家为认证商户，可放心付款；<br />
+				3.汇款时请一定要填写备注信息；<br />
+				4.卖家确认收到款后，自动充值CNT。如超过24小时未收到币，请向客服反馈解决。<br />
+				温馨提示：如有任何疑问请联系在线客服。<br /><br />
+			</div>
+			<a href="./" class="linkbtn">我已完成汇款转账</a>
+			<br /><br />
+    	</div>
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

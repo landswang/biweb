@@ -1,0 +1,27 @@
+﻿.middle .head .title{padding:0px 5px; margin-right:10px;}
+.middle .vhead{padding:10px; border-bottom:none;}
+.middle .vhead .left{width:60%; float:left; font-size:20px; font-weight:bold;}
+.middle .vhead .left img{width:40px; height:40px; vertical-align:middle;}
+.middle .vhead .right{width:30%; float:right; text-align:right;}
+.middle .vhead .right img{width:35px; vertical-align:middle;}
+.middle .tradecoin{line-height:22px; }
+.middle .tradecoin .tradecointable{width:100%; background:#FCFCFC;}
+.middle .tradecoin .tradecointable td{text-align:center; vertical-align:top; padding:10px 0px; line-height:24px;}
+.middle .buyselllogin{text-align:center; margin:35px 0px 30px 0px;}
+.middle .buyselllogin a{color:yellow; background:red; padding:10px 40px; border-radius:10px;}
+.middle .mleftlist{background:#FCFCFC; padding:10px;}
+.middle .mleftlisttrade{width:97hw; padding:10px;}
+.middle .mleftlisttrade .tradehead{text-align:center; font-weight:bold; font-size:16px;}
+.middle .mleftlisttrade table{width:100%;}
+.middle .tradeinput{width:100px;}
+.middle .linkbtn{padding:3px 10px; background:#FF8C12; boder-radius:3px; color:white;}
+.middle .myorderform{background:#FCFCFC; padding:10px;}
+.middle .myorderform .myorderformpanel{height:260px; overflow:auto;}
+.middle .lasttraderecord{background:#FCFCFC; padding:10px;}
+.middle .btntrade{border:none; width:100%; padding:7px 0px; color:white;}
+.middle .btntradesell{background:#F0352F;}
+.middle .btntradebuy{background:#28BA39;}
+.middle .wordssell{color:#F0352F;}
+.middle .wordsbuy{color:#28BA39;}
+.middle .tradelist tr{cursor:pointer;}
+.middle .coindescription{display:none; background:#FCFCFC; padding:10px;}

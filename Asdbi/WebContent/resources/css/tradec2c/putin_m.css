@@ -1,0 +1,6 @@
+﻿.middle .head .mht{border-bottom:none; color:#CACACA; cursor:pointer;}
+.middle .head .cur{border-bottom:solid 5px #FF8C12; color:#676767;}
+.middle .orderform{background:#FCFCFC; padding:10px; text-align:center;}
+.middle .orderform .orderformpnl{width:90hw; line-height:24px; background:#FCFCFC; padding:10px; margin:auto; text-align:left;}
+.middle .orderform .orderformpnl b{color:red;}
+.middle .linkbtn{padding:3px 10px; background:#FF8C12; boder-radius:3px; color:white;}

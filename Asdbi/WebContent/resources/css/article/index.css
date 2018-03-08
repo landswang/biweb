@@ -1,0 +1,5 @@
+﻿.middle .left{width:180px; float:left; background:#FCFCFC; padding:10px;}
+.middle .left a{font-size:16px; margin-left:5px;}
+.middle .left a.cur{color:#FF8C12;}
+.middle .left span.cur{background:#FF8C12;}
+.middle .right{width:960px; float:right; text-align:left; background:#FCFCFC; padding:10px;}

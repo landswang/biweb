@@ -1,0 +1,43 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>我的虚拟币资产<a href="../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+    <div class="middle">
+   		<div class="middlecont">
+			<#if member.name?? && member.idcard??>
+				<table cellspacing="0" class="tablelist">
+					<tr>
+						<th>币种</th>
+						<th>余额</th>
+						<th>冻结</th>
+						<th>合计</th>
+						<th>折合(CNT) </th>
+					</tr>
+					<#list membervirtualcoins as membervirtualcoin>
+						<tr<#if membervirtualcoin_index % 2 == 1> class="splittr"</#if>>
+							<td>${membervirtualcoin.virtualcoin.cname}</td>
+							<td>${membervirtualcoin.countactive}</td>
+							<td>${membervirtualcoin.countdisable}</td>
+							<td>${(membervirtualcoin.countactive + membervirtualcoin.countdisable)?string("0.#####")}</td>
+							<td><#if membervirtualcoin.virtualcoin.enabled>${((membervirtualcoin.countactive + membervirtualcoin.countdisable) * membervirtualcoin.virtualcoin.price)?string("0.##")}<#else>--</#if></td>
+						</tr>
+					</#list>
+				</table>
+			</#if>
+		</div>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

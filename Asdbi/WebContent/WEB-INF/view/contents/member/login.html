@@ -1,0 +1,50 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员登录-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/login${device}.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/login.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+    	<#if device == "">
+	         <div class="middleleft">
+	         	<a href="http://www.bishequ.com/contest" target="_blank">
+	         		<img src="/resources/images/member/login.jpg?tmp=6" />
+	         	</a>
+	         </div>
+		</#if>
+         <div class="${(device == '')?string('middleright','middlelogin')}">
+			<form name="form_login" method="post" action="logindo" onsubmit="return checkform()">
+				<div class="logintitle">会员登录</div>
+				<ul>
+					<li>风险提示：数字商品具有极高的风险（预挖、暴涨暴跌、庄家操控、团队解散、技术缺陷等），交换平台仅为数字商品的爱好者提供一个自由的网上交换平台，对商品的投资价值不承担任何审查、担保、赔偿的责任，如果您不能接受，请关闭网页！谢谢！</li>
+                   	<li><input type="text" name="username" id="username" value="${username!}" required placeholder="手机号码" /></li>
+                   	<li><input type="password" name="password" id="password" value="${password!}" required placeholder="密码" /></li>
+                   	<li>
+                       	<label><input type="checkbox" checked onclick="agree()" />我已知晓并同意自行承担风险</label><br />
+                       	<input type="submit" id="loginbtn" class="loginbtn" value="登 录" />
+                   	</li>
+                   	<li>
+                   		<label><input name="rememberpassword" type="checkbox"<#if password??> checked</#if> />记住密码</label>
+                       	<label><a href="findpwd">忘记密码？</a></label>
+                       	<a href="register" style="color:red;">免费注册</a>
+                   	</li>
+				</ul>
+		        <input type="hidden" name="callbackurl" value="${callbackurl!}" />
+		        <@s.token />
+			</form>
+         </div>
+    </div>
+	<#include "../include/bottom.html">
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<#if device != ""><link href="/resources/css/member/vcoin_m.css" type="text/css" rel="stylesheet"></#if>
+<link href="/resources/css/member/vcoinputin${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/vcoinputin.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>虚拟币转入与转出<a href="../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>虚拟币转入</div>
+    			<div class="middlerightcont">
+    				<div class="conttabhead">
+    					<span>在线转入</span>
+    					<a href="putinrecord">转入记录</a>
+    				</div>
+    				<br />
+    				<a onclick="openothercoins(event)">
+    					<img src="${membervirtualcoin.virtualcoin.image}" class="curcoinimg" width="18" height="18" style="vertical-align:middle;" /> ${membervirtualcoin.virtualcoin.cname} | ${membervirtualcoin.virtualcoin.eunit}
+    					<img src="/resources/images/main/down_s_b.png" />
+    				</a>
+    				<div class="othercoins">
+    					<#list virtualcoins as virtualcoin>
+							<a href="putin?virtualcoinid=${virtualcoin.id}"><img src="${virtualcoin.image}" />${virtualcoin.cname}</a>
+						</#list>
+					</div>
+					&nbsp;<span style="color:#FF8400;">←选择</span>
+    				&nbsp;&nbsp;&nbsp;&nbsp;可用${membervirtualcoin.virtualcoin.cname}：${membervirtualcoin.countactive}&nbsp;&nbsp;&nbsp;&nbsp;冻结${membervirtualcoin.virtualcoin.cname}：${membervirtualcoin.countdisable}
+    				<br /><br />
+    				这是您的钱包地址，请将您的 <b>${membervirtualcoin.virtualcoin.cname}</b> 转入此地址：<br />
+    				<div class="walletaddress">
+    					<#if membervirtualcoin.walletaddress?? && membervirtualcoin.virtualcoin.canputin>
+    						${membervirtualcoin.walletaddress}
+    					<#else>
+    						此币暂无地址
+    					</#if>
+    				</div>
+    				<#if membervirtualcoin.walletaddress?? && membervirtualcoin.virtualcoin.canputin>
+		   				<div class="notice">
+							<#if membervirtualcoin.virtualcoin.putinexplain??>
+								<b>${membervirtualcoin.virtualcoin.putinexplain}</b>
+							</#if>
+						</div>
+					</#if>
+    				<br /><br />
+    				<div class="notice">
+    					转入说明：<br />
+						1. 转入是自动的， ${membervirtualcoin.virtualcoin.cname} 转账需要整个 ${membervirtualcoin.virtualcoin.cname} 网络进行确认，达到若干个确认后您的 ${membervirtualcoin.virtualcoin.cname} 会自动充值到您的账户中；<br />
+						2. 此地址是您唯一且独自使用的转入地址，您可以同时进行多次充值， 也可将此地址做为您在矿池的付款地址；
+						<#if membervirtualcoin.virtualcoin.putinrate gt 0 || membervirtualcoin.virtualcoin.putinfloor gt 0>
+							<br />
+							3. ${membervirtualcoin.virtualcoin.cname}
+							<#if membervirtualcoin.virtualcoin.putinrate gt 0>
+								手续费为：${membervirtualcoin.virtualcoin.putinrate}
+							</#if>
+							<#if membervirtualcoin.virtualcoin.putinfloor gt 0>
+								，转入下限为：${membervirtualcoin.virtualcoin.putinfloor}，<b>低于下限的充值将无法到账，请特别注意！！</b>
+							</#if>
+						</#if>
+    				</div>
+	    		</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+    		<div class="middletop">
+				<a class="cur">在线转入</a>
+				<a href="putinrecord">转入记录</a>
+				<a href="extract">在线转出</a>
+				<a href="extractrecord">转出记录</a>
+			</div>
+ 			<div class="middlebottom">
+   				<a onclick="openothercoins(event)">
+   					<img src="${membervirtualcoin.virtualcoin.image}" class="curcoinimg" width="18" height="18" style="vertical-align:middle;" /> ${membervirtualcoin.virtualcoin.cname} | ${membervirtualcoin.virtualcoin.eunit}
+   					<img src="/resources/images/main/down_s_b.png" />
+   				</a>
+   				<br /><br />
+   				<div class="othercoins">
+   					<#list virtualcoins as virtualcoin>
+						<a href="putin?virtualcoinid=${virtualcoin.id}"><img src="${virtualcoin.image}" />${virtualcoin.cname}</a>
+					</#list>
+				</div>
+				可用${membervirtualcoin.virtualcoin.cname}：${membervirtualcoin.countactive}&nbsp;&nbsp;&nbsp;&nbsp;冻结${membervirtualcoin.virtualcoin.cname}：${membervirtualcoin.countdisable}
+   				<br /><br />
+   				这是您的钱包地址，请将您的 <b>${membervirtualcoin.virtualcoin.cname}</b> 转入此地址：
+   				<div class="walletaddress">
+   					<#if membervirtualcoin.walletaddress?? && membervirtualcoin.virtualcoin.canputin>
+   						${membervirtualcoin.walletaddress}
+   					<#else>
+   						此币暂无地址
+   					</#if>
+   				</div>
+    			<#if membervirtualcoin.walletaddress?? && membervirtualcoin.virtualcoin.canputin>
+	   				<div class="notice">
+						<#if membervirtualcoin.virtualcoin.putinexplain??>
+							<b>${membervirtualcoin.virtualcoin.putinexplain}</b>
+						</#if>
+					</div>
+				</#if>
+   				<br />
+   				<div class="notice">
+   					转入说明：<br />
+					1. 转入是自动的， ${membervirtualcoin.virtualcoin.cname} 转账需要整个 ${membervirtualcoin.virtualcoin.cname} 网络进行确认，达到若干个确认后您的 ${membervirtualcoin.virtualcoin.cname} 会自动充值到您的账户中<br />
+					2. 此地址是您唯一且独自使用的转入地址，您可以同时进行多次充值， 也可将此地址做为您在矿池的付款地址
+					<#if membervirtualcoin.virtualcoin.putinrate gt 0 || membervirtualcoin.virtualcoin.putinfloor gt 0>
+						<br />
+						3. ${membervirtualcoin.virtualcoin.cname}
+						<#if membervirtualcoin.virtualcoin.putinrate gt 0>
+							手续费为：${membervirtualcoin.virtualcoin.putinrate} 
+						</#if>
+						<#if membervirtualcoin.virtualcoin.putinfloor gt 0>
+							转入下限为：${membervirtualcoin.virtualcoin.putinfloor}，<b>低于下限的充值将无法到账，请特别注意！！</b>
+						</#if>
+					</#if>
+   				</div>
+      		</div>
+	    </#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

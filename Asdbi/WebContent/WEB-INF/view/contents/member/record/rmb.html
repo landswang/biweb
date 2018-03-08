@@ -1,0 +1,117 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<#if device == "_m"><link href="/resources/css/member/record_m.css" type="text/css" rel="stylesheet"></#if>
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/datepicker/wdatepicker.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>交易记录</div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>账流水记录</div>
+	    		<div class="middlerightcont">
+		    		<form method="post" action="rmb">
+			    		<table class="tools">
+			    			<tr>
+			    				<td>
+			    					类型：
+			    					<select name="rmbrecordtypeid" onchange="getform(this).submit()">
+			    						<option value="0">--全部--</option>
+										<#list rmbrecordTypes as rmbrecordType>
+											<option value="${rmbrecordType.id}"<#if rmbrecordType.id == rmbrecordtypeid> selected</#if>>${rmbrecordType.name}</option>
+										</#list>
+			    					</select>
+		   							&nbsp;&nbsp;
+		   							时间：<input type="text" name="dt1" value="${(dt1?string('yyyy-MM-dd HH:mm:ss'))!}" onfocus="datepicker('yyyy-MM-dd HH:mm:ss')" /> -
+			                   		 <input type="text" name="dt2" value="${(dt2?string('yyyy-MM-dd HH:mm:ss'))!}" onfocus="datepicker('yyyy-MM-dd HH:mm:ss')" />
+		   							&nbsp;&nbsp;
+			                    	<a onclick="getform(this).submit()" class="linkbtn">查询</a>
+			    				</td>
+			    			</tr>
+				    	</table>
+						<table cellspacing="0" class="tablelist">
+				    	 	<tr>
+				    	 		<th>类型</th>
+				    	 		<th>变动额</th>
+								<th>手续费</th>
+								<th>时间</th>
+							</tr>
+							<#list rmbrecords as rmbrecord>
+								<tr<#if rmbrecord_index % 2 == 1> class="splittr"</#if>>
+									<td>${rmbrecord.rmbrecordType.name}</td>
+									<td>${rmbrecord.variable}</td>
+									<td>${rmbrecord.fee}</td>
+									<td>${rmbrecord.recordtime?string('MM-dd HH:mm:ss')}</td>
+								</tr>
+							</#list>
+			    	 	</table>
+		                <br />
+		                <#include "../../include/pager.html">
+		    	 	</form>
+		    	</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+    		<div class="middletop">
+				<a href="trade">交易记录</a>
+				<a class="cur">账流水记录</a>
+				<a href="vcoin">币流水记录</a>
+			</div>
+ 			<div class="middlebottom">
+ 				<form method="post" action="rmb">
+		    		<table class="tools">
+		    			<tr>
+		    				<td>
+		    					类型：
+		    					<select name="rmbrecordtypeid" onchange="getform(this).submit()">
+		    						<option value="0">--全部--</option>
+									<#list rmbrecordTypes as rmbrecordType>
+										<option value="${rmbrecordType.id}"<#if rmbrecordType.id == rmbrecordtypeid> selected</#if>>${rmbrecordType.name}</option>
+									</#list>
+		    					</select>
+		    				</td>
+		    			</tr>
+			    	</table>
+					<table cellspacing="0" class="tablelist">
+			    	 	<tr>
+			    	 		<th>类型</th>
+			    	 		<th>变动额</th>
+							<th>手续费</th>
+							<th>时间</th>
+						</tr>
+						<#list rmbrecords as rmbrecord>
+							<tr<#if rmbrecord_index % 2 == 1> class="splittr"</#if>>
+								<td>${rmbrecord.rmbrecordType.name}</td>
+								<td>${rmbrecord.variable}</td>
+								<td>${rmbrecord.fee}</td>
+								<td>${rmbrecord.recordtime?string('MM-dd HH:mm:ss')}</td>
+							</tr>
+						</#list>
+		    	 	</table>
+	                <br />
+	                <#include "../../include/pager.html">
+	    	 	</form>
+      		</div>
+		</#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

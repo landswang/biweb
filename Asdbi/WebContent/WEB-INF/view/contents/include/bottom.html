@@ -1,0 +1,35 @@
+<div class="bottom">
+	<#if device == "">
+		<#-- PC -->
+		<div class="bottomcont">
+	     	Copyright©2018 BI All Rights Reserved.&nbsp;&nbsp;&nbsp;&nbsp;
+	     	联系邮箱：<a href="mailto:bi_top@yeah.net">bi_top@yeah.net</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	     	QQ交流三群：576716667&nbsp;&nbsp;<img src="/resources/images/main/down.png" onclick="openotherqq()" />
+	     	<div class="otherqq">
+				四群：698780024<br />
+				八群：699313093<br />
+				五/六/七群：待开放
+			</div>
+		</div>
+	<#else>
+		<#-- WAP -->
+		<table width="100%">
+            <tr>
+                <td><a href="/"<#if requestURI == "/"> class="cur"</#if>><img src="/resources/images/main/wap/home${(requestURI == '/')?string(1,0)}.png"><br>主页</a></td>
+                <td><a onclick="opencoins(event)"<#if requestURI?contains('/trade/') || requestURI?contains('/tradec2c/')> class="cur"</#if>><img src="/resources/images/main/wap/trade${(requestURI?contains('/trade/') || requestURI?contains('/tradec2c/'))?string(1,0)}.png"><br>交易</a></td>
+                <td><a href="/article/1.html"<#if requestURI?contains('/article/')> class="cur"</#if>><img src="/resources/images/main/wap/article${(requestURI?contains('/article/'))?string(1,0)}.png"><br>公告</a></td>
+                <td><a href="/member/"<#if requestURI?contains('/member/')> class="cur"</#if>><img src="/resources/images/main/wap/my${(requestURI?contains('/member/'))?string(1,0)}.png"><br>我的</a></td>
+            </tr>
+		</table>
+	</#if>
+</div>
+<#if device == "">
+	<script type='text/javascript' src='https://www.365webcall.com/IMMe1.aspx?settings=mw7mwbXN6P67PIz3AP7Iwmz3Am0m067z3AX6mm7b&LL=0'></script>
+<#else>
+	<div class="coins">
+		<#list virtualcoins as virtualcoin>
+			<a href="/trade/${virtualcoin.eunit?lower_case}.html"><img src="${virtualcoin.image}" />${virtualcoin.cname}</a>
+		</#list>
+	</div>
+	<script type='text/javascript' src='https://www.365webcall.com/IMMe2.aspx?settings=mw7mPXmm7P67PIz3AP7Iwmz3AwbP0z3A66mmIN&LL=0'></script>
+</#if>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <constant name="struts.enable.SlashesInActionNames" value="true" />
+    <constant name="struts.serve.static.browserCache" value="false" />
+    <constant name="struts.multipart.maxSize" value="1073741824" />
+    <constant name="struts.action.excludePattern" value="/errors/.*,/resources/.*,/uploads/.*,/.*[.]do" />
+    <package name="base" extends="struts-default">
+		<interceptors>
+            <interceptor name="memberLoginIntercept" class="com.hongkuncheng.vcoin.interceptor.MemberLoginIntercept" />
+            <interceptor-stack name="memberLoginInterceptStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="memberLoginIntercept">
+                	<param name="excludeMethods">login,logindo,logout,mobilevalidate,mobilevalidatedo,findpwd,findpwddo,register,registerdo</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            <interceptor-stack name="memberUploadStack">
+	            <interceptor-ref name="defaultStack">
+					<param name="fileUpload.maximumSize">2100000</param>
+					<param name="fileUpload.allowedTypes">image/jpeg,image/png,image/gif</param>
+				</interceptor-ref>
+			</interceptor-stack>
+            <interceptor-stack name="tokenInterceptStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="token" />
+            </interceptor-stack>
+        </interceptors>
+    	<global-results>
+            <result name="normal" type="freemarker">/WEB-INF/view/normal.html</result>
+            <result name="compress" type="freemarker">/WEB-INF/view/compress.html</result>
+            <result name="invalid.token" type="redirect">/errors/resubmit.html</result>
+        </global-results>
+    </package>
+    <package name="index" extends="base" namespace="/">
+    	<action name="" class="iindexAction" method="index" />
+    	<action name="*" class="iindexAction" method="{1}" />
+    	<action name="*/" class="i{1}Action" method="index" />
+    	<action name="*/*" class="i{1}Action" method="{2}" />
+    	<action name="trade/dispose" class="itradeAction" method="dispose"><interceptor-ref name="tokenInterceptStack" /></action>
+    	<action name="vote/applydispose" class="ivoteAction" method="applydispose"><interceptor-ref name="tokenInterceptStack" /></action>
+    </package>
+    <package name="member" extends="base" namespace="/member">
+    	<default-interceptor-ref name="memberLoginInterceptStack" />
+    	<action name="" class="mbindexAction" method="index" />
+    	<action name="*" class="mbindexAction" method="{1}" />
+    	<action name="*/" class="mb{1}Action" method="index" />
+    	<action name="*/*" class="mb{1}Action" method="{2}" />
+    	<action name="*/*/*" class="mb{2}Action" method="{3}" />
+    	<action name="logindo" class="mbindexAction" method="logindo"><interceptor-ref name="tokenInterceptStack" /></action>
+    	<action name="findpwddo" class="mbindexAction" method="findpwddo"><interceptor-ref name="tokenInterceptStack" /></action>
+    	<action name="push/transferdo" class="mbpushAction" method="transferdo"><interceptor-ref name="tokenInterceptStack" /></action>
+    	<action name="rmb/extractdo" class="mbrmbAction" method="extractdo"><interceptor-ref name="tokenInterceptStack" /></action>
+    	<action name="vcoin/extractdo" class="mbvcoinAction" method="extractdo"><interceptor-ref name="tokenInterceptStack" /></action>
+    	<action name="system/file/upload" class="mbfileAction" method="upload"><interceptor-ref name="memberUploadStack" /></action>
+    </package>
+    <package name="interfaces" extends="base" namespace="/interfaces">
+    	<action name="*" class="in{1}Action" method="index" />
+    	<action name="*/*" class="in{1}Action" method="{2}" />
+    </package>
+</struts>

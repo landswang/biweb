@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.6//EN"
+        "http://tuckey.org/res/dtds/urlrewrite2.6.dtd">
+<urlrewrite>
+	<!-- 
+	<rule>
+		<from>^/(.*)</from>
+		<condition name="host" operator="notequal">^www.example.com</condition>
+		<to type="permanent-redirect" last="true">https://www.example.com/$1</to>
+	</rule>
+	 -->
+    <rule>
+        <from>/trade/revocation/([1-9]\d{0,8})/([1-9]\d{0,8}).html$</from>
+        <to type="forward">/trade/revocation?virtualcoinid=$1&amp;orderformid=$2</to>
+    </rule>
+    <rule>
+        <from>/trade/(.*).html$</from>
+        <to type="forward">/trade/index?eunit=$1</to>
+    </rule>
+    <rule>
+        <from>/article/([1-9]\d{0,8}).html$</from>
+        <to type="forward">/article/index?articletypeid=$1</to>
+    </rule>
+    <rule>
+        <from>/article/detail/([1-9]\d{0,8}).html$</from>
+        <to type="forward">/article/detail?articleid=$1</to>
+    </rule>
+    <rule>
+        <from>/faq/([1-9]\d{0,8}).html$</from>
+        <to type="forward">/faq/index?faqId=$1</to>
+    </rule>
+    <rule>
+        <from>/faq/detail/([1-9]\d{0,8}).html$</from>
+        <to type="forward">/faq/detail?faqId=$1</to>
+    </rule>
+</urlrewrite>

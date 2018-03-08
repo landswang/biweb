@@ -1,0 +1,6 @@
+#dialog_imagecrop .bodycontent .left{float:left; width:65%;}
+#dialog_imagecrop .bodycontent .right{float:right; width:35%;}
+#dialog_imagecrop .frame{background:#fff; padding:10px; border:solid 1px #ddd;}
+#dialog_imagecrop .bodycontent .right .sizes{height:92px; overflow:auto;}
+#dialog_imagecrop .bodycontent .right table td{padding:5px 0px;}
+#dialog_imagecrop .bodycontent .right table td input{padding:3px 10px;}

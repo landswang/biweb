@@ -1,0 +1,7 @@
+body{overflow-y: scroll !important;}
+.view {word-break: break-all;}
+.view img{max-width:100% !important; height:auto;}
+.view video{max-width:100% !important; height:auto;}
+.view embed{max-width:100%; height:auto;}
+.vote_area{display: block;}
+.vote_iframe{background-color: transparent;border: 0 none;height: 100%;}

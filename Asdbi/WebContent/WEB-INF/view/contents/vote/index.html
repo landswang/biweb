@@ -1,0 +1,67 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>新币投票-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/vote/index${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+   		<div class="head">
+   			<a class="title mht cur">新币投票</a>
+   			<a href="record" class="title mht">投票记录</a>
+   			<a href="apply" class="title mht">上币申请</a>
+   			<br class="clear" />
+   		</div>
+   		<div class="middlebottom">
+	    	<table class="tablelist" cellspacing="0">
+	    		<tr>
+	    			<th>排名</th>
+	    			<th>币种名称</th>
+	    			<th>有效票数</th>
+	    			<th>赞成 / 反对</th>
+	    			<#if device == "">
+	    				<th>总投票数</th>
+	    			</#if>
+	    			<th>操作</th>
+	    		</tr>
+	   			<#list votes as vote>
+					<tr<#if vote_index % 2 == 1> class="splittr"</#if>>
+						<td>${vote_index + 1}</td>
+						<td>${vote.cname} | ${vote.ename}</td>
+						<td>${vote.approvecount - vote.opposecount}</td>
+						<td><span class="approve">${vote.approvecount}</span> / <span class="oppose">${vote.opposecount}</span></td>
+						<#if device == "">
+							<td>${vote.approvecount + vote.opposecount}</td>
+						</#if>
+						<td>
+							<#if vote.voting>
+								<a href="dispose?voteid=${vote.id}&type=1" class="approve">赞成</a> /
+								<a href="dispose?voteid=${vote.id}&type=2" class="oppose">反对</a>
+							<#else>
+								--
+							</#if>
+						</td>
+					</tr>
+				</#list>
+	   		</table>
+	   		<br />
+	   		<div class="votenotice">
+	   			投票说明：<br />
+	   			每位用户每日共有10次投票机会，每次投票需要使用1枚什币股；<br />
+	   			投票周期10天，十天后票数最高者可免费获得上币机会。投票及上币申请所获得的什币股将全额分发给什币网（中国）每月交易额前5名的用户；
+	   			最终结果按有效票数排名为准；
+	   		</div>
+   		</div>
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

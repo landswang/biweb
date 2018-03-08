@@ -1,0 +1,84 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<#if device == "_m"><link href="/resources/css/member/project_m.css" type="text/css" rel="stylesheet"></#if>
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>银行卡号<a href="edit" class="logout">新建</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>银行卡号</div>
+	    		<div class="middlerightcont">
+		    		<table class="tools">
+		    			<tr>
+		    				<td align="right">
+		    					<a href="edit" class="linkbtn insert">新增银行卡</a>
+		    				</td>
+		    			</tr>
+			    	</table>
+					<table cellspacing="0" class="tablelist">
+			    	 	<tr>
+			    	 		<th>类型</th>
+			    	 		<th>银行卡号</th>
+			    	 		<th>所在地区</th>
+			    	 		<th>开户支行</th>
+			    	 		<th>操作</th>
+			    	 	</tr>
+			    	 	<#list bankcards as bankcard>
+				    	 	<tr<#if bankcard_index % 2 == 1> class="splittr"</#if>>
+				    	 		<td align="center">${bankcard.bankname}</td>
+				    	 		<td align="center">${bankcard.number?substring(0,4)}*********${bankcard.number?substring(bankcard.number?length-4,bankcard.number?length)}</td>
+				    	 		<td align="center">${bankcard.addprovince}-${bankcard.addcity}</td>
+				    	 		<td align="center">${bankcard.branch!}</td>
+				    	 		<td align="center">
+				    	 			<a<#if bankcards?size gt 1> href="delete?bankcardid=${bankcard.id}" onclick="return confirm('如果您现在有未到账的充值，请不要删除，否则会无法到账。\n确定删除该条数据吗？')"<#else> onclick="alert('不好意思，您需要至少保留一个银行卡号！')"</#if> class="linkbtn">删除</a>
+				    	 		</td>
+				    	 	</tr>
+			    	 	</#list>
+		    	 	</table>
+		    	</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+	    	<div class="middlecont">
+	    		<table cellspacing="0" class="tablelist">
+		    	 	<tr>
+		    	 		<th>类型</th>
+		    	 		<th>银行卡号</th>
+		    	 	</tr>
+		    	 	<#list bankcards as bankcard>
+			    	 	<tr<#if bankcard_index % 2 == 1> class="splittr"</#if>>
+			    	 		<td align="center">${bankcard.bankname}</td>
+			    	 		<td align="center">${bankcard.number?substring(0,4)}*********${bankcard.number?substring(bankcard.number?length-4,bankcard.number?length)}</td>
+			    	 	</tr>
+			    	 	<tr>
+			    	 		<td colspan="5">
+			    	 			<a<#if bankcards?size gt 1> href="delete?bankcardid=${bankcard.id}" onclick="return confirm('如果您现在有未到账的充值，请不要删除，否则会无法到账。\n确定删除该条数据吗？')"<#else> onclick="alert('不好意思，您需要至少保留一个银行卡号！');"</#if> class="linkbtn">删除</a>
+			    	 		</td>
+			    	 	</tr>
+		    	 	</#list>
+	    	 	</table>
+	    	</div>
+		</#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

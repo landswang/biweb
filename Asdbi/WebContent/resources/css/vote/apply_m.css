@@ -1,0 +1,8 @@
+﻿.middle .head{width:100%; position:fixed; top:45px; background:white; z-index:2; border-bottom:solid 1px #E8E8E8;}
+.middle .head a{width:32%; display:inline-table; text-align:center; padding:10px 0px; border-bottom:solid 1px transparent;}
+.middle .head a.cur{color:#FF5000; border-bottom-color:#FF5000;}
+.middle .middlebottom{position:absolute; top:45px; bottom:0px; background:white; overflow:auto; padding-bottom:20px; padding:10px;}
+.middle .apply{width:100vw; height:500px;}
+.middle .apply td textarea{width:200px;}
+.middle .tablelist td{padding:3px 0px;}
+.middle .tablelist td a{padding:3px 10px; background:#FF8C12; boder-radius:3px; color:white;}

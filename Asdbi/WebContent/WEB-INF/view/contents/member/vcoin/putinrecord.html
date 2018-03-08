@@ -1,0 +1,104 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<#if device != ""><link href="/resources/css/member/vcoin_m.css" type="text/css" rel="stylesheet"></#if>
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>虚拟币转入与转出<a href="../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>虚拟币转入</div>
+    			<div class="middlerightcont">
+    				<div class="conttabhead">
+    					<a href="putin">在线转入</a>
+    					<span>转入记录</span>
+    				</div>
+    				<br />
+    				<form method="post" action="putinrecord">
+						<table cellspacing="0" class="tablelist">
+							<tr>
+								<th>币种</th>
+								<th>数量</th>
+								<th>手续费</th>
+								<th>实际数量</th>
+								<th>交易ID</th>
+								<th>时间</th>
+							</tr>
+							<#list vcoinputinrecords as vcoinputinrecord>
+								<tr<#if vcoinputinrecord_index % 2 == 1> class="splittr"</#if>>
+									<td>${vcoinputinrecord.virtualcoin.cname}</td>
+									<td>${vcoinputinrecord.count + vcoinputinrecord.fee}</td>
+									<td><#if vcoinputinrecord.fee gt 0>${vcoinputinrecord.fee}<#else>0</#if></td>
+									<td>${vcoinputinrecord.count}</td>
+									<td>${substring(vcoinputinrecord.txid,20)}</td>
+									<td>${vcoinputinrecord.putintime?string('yyyy-MM-dd HH:mm:ss')}</td>
+								</tr>
+							</#list>
+						</table>
+		                <br />
+		                <#include "../../include/pager.html">
+					</form>
+					<input type="hidden" id="membervirtualcoinids" value="${membervirtualcoinids}" />
+	    		</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+    		<div class="middletop">
+				<a href="putin">在线转入</a>
+				<a class="cur">转入记录</a>
+				<a href="extract">在线转出</a>
+				<a href="extractrecord">转出记录</a>
+			</div>
+ 			<div class="middlebottom">
+ 				<form method="post" action="putinrecord">
+					<table cellspacing="0" class="tablelist">
+						<tr>
+							<th>币种</th>
+							<th>数量</th>
+							<th>手续费</th>
+							<th>实际数量</th>
+							<th>时间</th>
+						</tr>
+						<#list vcoinputinrecords as vcoinputinrecord>
+							<tr<#if vcoinputinrecord_index % 2 == 1> class="splittr"</#if>>
+								<td>${vcoinputinrecord.virtualcoin.cname}</td>
+								<td>${vcoinputinrecord.count + vcoinputinrecord.fee}</td>
+								<td><#if vcoinputinrecord.fee gt 0>${vcoinputinrecord.fee}<#else>0</#if></td>
+								<td>${vcoinputinrecord.count}</td>
+								<td>${vcoinputinrecord.putintime?string('MM-dd HH:mm:ss')}</td>
+							</tr>
+							<tr>
+								<td colspan="5">
+									交易ID：${substring(vcoinputinrecord.txid,20)}
+								</td>
+							</tr>
+						</#list>
+					</table>
+	                <br />
+	                <#include "../../include/pager.html">
+				</form>
+				<input type="hidden" id="membervirtualcoinids" value="${membervirtualcoinids}" />
+      		</div>
+	    </#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

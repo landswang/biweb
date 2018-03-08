@@ -1,0 +1,155 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="keywords" content="${web.keywords}" />
+<meta name="description" content="${web.description}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>${web.title}</title>
+<link href="favicon.ico" rel="shortcut icon">
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/index${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/index${device}.js"></script>
+<link rel="stylesheet" type="text/css" rel="stylesheet" href="/resources/css/tabs/jquery.pwstabs.hig.css">
+<script src="/resources/js/tabs/jquery.pwstabs-1.1.3.min.js"></script>
+<#if device == "">
+<script type="text/javascript" src="/resources/js/prefixfree.js"></script>
+<#else>
+<script type="text/javascript" src="/resources/js/swipe.js"></script>
+</#if>
+</head>
+<body>
+	<div class="top">
+		<#if device == "">
+			<#-- PC -->
+			<div class="cont">
+				<img alt="${web.title}" src="/resources/images/logo.png" />
+				<div class="member">
+					<#if !member??>
+						<a href="/member/login">登录</a> |
+						<a href="/member/register">注册</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a onclick="zh_tran('s')">简体</a> |
+						<a onclick="zh_tran('t')">繁体</a>
+					<#else>
+						<a href="/member/">${member.id}</a> |
+						<a href="/member/logout" onclick="return confirm('确定退出吗？')">退出</a>
+					</#if>
+				</div>
+			</div>
+		<#else>
+			<#include "include/top.html">
+		</#if>
+	</div>
+	<div class="middle">
+		<#if device == "">
+			<#-- PC -->
+			<#if noticearticles?? && noticearticles?length gt 2>
+	    		<center class="article">
+   					<#assign toparticle = noticearticles[0]>
+   					<img src="/resources/images/index/wap/article.png" height="20" />&nbsp;&nbsp;<a href="/article/detail/${toparticle.id}.html">${toparticle.title}</a>
+	    		</center>
+    		</#if>
+			<br />
+			<div class="menu">
+				<a href="/" class="first">首页</a>
+				<a href="/tradec2c/" class="first">C2C交易</a>
+				<a href="/member/" class="first">财务中心</a>
+				<a href="/article/1.html" class="first">最新公告</a>
+				<a href="/faq/95.html" class="first">常见问题</a>
+				<div class="coins">
+					<#list virtualcoins as virtualcoin>
+						<a href="/trade/${virtualcoin.eunit?lower_case}.html"><img src="${virtualcoin.image}" />${virtualcoin.cname}</a>
+					</#list>
+				</div>
+			</div>
+			<br />
+			
+			 <div class="tradeDiv">
+	          <div data-pws-tab="tab111" data-pws-tab-name="CNT交易区">
+	            <div class="vcoins">
+					<#list virtualcoins as virtualcoin>
+						<a href="/trade/${virtualcoin.eunit?lower_case}.html">
+							<img src="${virtualcoin.image}" style="vertical-align:middle;" />
+							${virtualcoin.cname} (${virtualcoin.eunit}/CNT)<br />
+							${virtualcoin.price}&nbsp;&nbsp;
+							<#assign todayincrease = todayincreases.get(virtualcoin.id)>
+							<#assign todayincreasecolor = "">
+							<#if todayincrease lt 0><#assign todayincreasecolor = "red">
+							<#elseif todayincrease gt 0><#assign todayincreasecolor = "#02CD1A">
+							</#if>
+							<span<#if todayincrease != 0> style="color:${todayincreasecolor};"</#if>><#if todayincrease != 0>${todayincrease}%<#else>--</#if></span>
+						</a>
+					</#list>
+					<br class="clear" />
+				</div>
+			  </div>
+	          <div data-pws-tab="tab222" data-pws-tab-name="BTC交易区">
+	          	<div style="height:840px;text-align:center; width:900px; font-size:25px; color:red;"><br/><br/><br/><br/> 即将开放,敬请期待...  </div>
+			  </div>
+	          <div data-pws-tab="tab333" data-pws-tab-name="ETH交易区">
+	          	<div style="height:840px;text-align:center; width:900px; font-size:25px; color:red;"><br/><br/><br/><br/> 即将开放,敬请期待...  </div>
+			  </div>
+	          <div data-pws-tab="tab444" data-pws-tab-name="USTD交易区">
+	          	<div style="height:840px;text-align:center; width:900px; font-size:25px; color:red;"><br/><br/><br/><br/> 即将开放,敬请期待...  </div>
+			  </div>
+		     </div>
+		     
+		<#else>
+			<div class="banner">
+    			<div class="swipe-wrap">
+    				<a href="#"><img src="/resources/images/index/wap/banner/1.jpg"/></a>
+    				<a href="#"><img src="/resources/images/index/wap/banner/2.jpg"/></a>
+    				<a href="#"><img src="/resources/images/index/wap/banner/3.jpg"/></a>
+				</div>
+    		</div>
+    		<#if noticearticles?? && noticearticles?length gt 2>
+	    		<table class="tbarticle">
+	    			<tr>
+	    				<td width="30">&nbsp;<img src="/resources/images/index/wap/article.png" height="20" /></td>
+	    				<td>
+	    					<#assign toparticle = noticearticles[0]>
+	    					<marquee scrollamount=3><a href="/article/detail/${toparticle.id}.html">${toparticle.title}</a></marquee>
+	    				</td>
+	    			</tr>
+	    		</table>
+    		</#if>
+    		<!--手机列表显示 -->
+	       <table id="tbvcoin121" class="tablelist" cellspacing="0">
+		   	<tr>
+				<th><div class="tradePlatBtn" onclick="change_t_p(1)">CNT交易区</div></th>
+				<th><div class="tradePlatBtn" onclick="change_t_p(2)">BTC交易区</div></th>
+				<th><div class="tradePlatBtn" onclick="change_t_p(3)">ETH交易区</div></th>
+				<th><div class="tradePlatBtn" onclick="change_t_p(4)">USTD交易区</div></th>
+			</tr>
+		   </table>
+			<table id="tbvcoin" class="tablelist" cellspacing="0">
+				<tr>
+					<th width="26%" style="text-align:left; padding-left:40px;">币种</th>
+					<th>时价</th>
+					<th>日涨跌</th>
+				</tr>
+				<#assign vcoinindex = 0>
+				<#list virtualcoins as virtualcoin>
+					<tr id="tbtrcoin_${virtualcoin.id}" class="tbtrcoinboards" onclick="clickvcoin('${virtualcoin.eunit?lower_case}')">
+						<td style="text-align:left; padding-left:10px;"><img src="${virtualcoin.image}" /> ${virtualcoin.cname}</td>
+						<td>${virtualcoin.price}</td>
+						<#assign todayincrease = todayincreases.get(virtualcoin.id)>
+						<#assign todayincreasecolor = "">
+						<#if todayincrease lt 0><#assign todayincreasecolor = "red">
+						<#elseif todayincrease gt 0><#assign todayincreasecolor = "#02CD1A">
+						</#if>
+						<td<#if todayincrease != 0> style="color:${todayincreasecolor};"</#if>><#if todayincrease != 0>${todayincrease}%<#else>--</#if></td>
+					</tr>
+				</#list>
+			</table>
+		</#if>
+    </div>
+    <#include "include/bottom.html">
+</body>
+</html>

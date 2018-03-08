@@ -1,0 +1,7 @@
+<#if alertmessage??>
+<script type="text/javascript">
+	$(document).ready(function(){
+		alert("${alertmessage?replace("\"","'")}");
+	});
+</script>
+</#if>

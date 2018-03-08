@@ -1,0 +1,7 @@
+﻿.middle .head{width:100%; position:fixed; top:45px; background:white; z-index:2; border-bottom:solid 1px #E8E8E8;}
+.middle .head a{width:32%; display:inline-table; text-align:center; padding:10px 0px; border-bottom:solid 1px transparent;}
+.middle .head a.cur{color:#FF5000; border-bottom-color:#FF5000;}
+.middle .middlebottom{position:absolute; top:45px; bottom:0px; background:white; overflow:auto; padding-bottom:20px; padding:10px;}
+.middle .approve{color:green;}
+.middle .oppose{color:red;}
+.middle .votenotice{padding:10px;}

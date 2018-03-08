@@ -1,0 +1,9 @@
+.middle .middlefindpwd{padding:10px; margin-top:20px;}
+.middle .middlefindpwd .findpwdtitle{font-size:30px; font-weight:bold; color:black; text-align:center;}
+.middle .middlefindpwd input{width:93%; padding:10px;}
+.middle .middlefindpwd .vcode input{width:45%; padding:10px;}
+.middle .middlefindpwd .vcode img{width:112px; height:44px; margin:1px; vertical-align:middle;}
+.middle .middlefindpwd ul li{margin:5px 0px;}
+.middle .middlefindpwd ul li *{vertical-align:middle;}
+.middle .middlefindpwd .sendmobilevalidate{color:white;}
+.middle .middlefindpwd .findpwdbtn{background:#FF4400; width:100%; height:45px; line-height:45px; text-align:center; color:white;  font-weight:bold; border:none; border-radius:4px;}

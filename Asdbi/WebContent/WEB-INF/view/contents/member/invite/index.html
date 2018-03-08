@@ -1,0 +1,99 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/clipboard.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/invite.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>邀请好友<a href=../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>邀请好友</div>
+    			<div class="middlerightcont">
+    				<div class="tools">
+    					我的邀请地址：
+    					<span id="inviteaddress" style="border:solid 1px #FFC9C9; background:#FFF5F5; padding:3px 10px;">${host}/member/register?invitecode=${member.id}</span>
+    					<a id="btncopyinviteaddress" class="linkbtn" data-clipboard-text="${host}/member/register?invitecode=${member.id}">复制邀请地址</a>
+    					<span id="inviteaddress" style=" padding:3px 10px; float: right;">我的分享奖励：共计 ￥&nbsp;&nbsp;<b>${inviteTAwardNum}</b> 元 </span>
+    				
+    				</div>
+    				<br />
+    				<form method="post" action="./">
+	    				<table cellspacing="0" class="tablelist">
+							<tr>
+								<th>用户ID</th>
+								<th>已注册</th>
+								<th>已实名</th>
+								<th>已交易</th>
+								<th>注册时间</th>
+							</tr>
+							<#list members as member>
+					        	<tr<#if member_index % 2 == 1> class="splittr"</#if>>
+					                <td align="center">${member.id ? replace(member.id ? substring(2,4),"**")}</td>
+					                <td align="center"><img src="/resources/images/ico/ok.png" /></td>
+					                <td align="center"><img src="/resources/images/ico/${(member.name??)?string('ok','delete')}.png" /></td>
+					                <td align="center"><img src="/resources/images/ico/${(member.traderecordsForBuymemberId?size gt 0 || member.traderecordsForSellmemberId?size gt 0)?string('ok','delete')}.png" /></td>
+					                <td align="center">${member.regtime?string('yyyy-MM-dd HH:mm:ss')}</td>
+					        	</tr>
+					        </#list>
+						</table>
+		                <br />
+		                <#include "../../include/pager.html">
+        			</form>
+	    		</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+    		<div style="padding:10px;">
+				我的邀请地址：<a id="btncopyinviteaddress" class="linkbtn" data-clipboard-text="${host}/member/register?invitecode=${member.id}">复制</a>
+				<div id="inviteaddress" style="color:#FF3737;">
+					${host}/member/register?invitecode=${member.id}
+				</div>
+			</div>
+ 			<div class="middlebottom">
+   				<form method="post" action="./">
+    				<table cellspacing="0" class="tablelist">
+						<tr>
+							<th>用户ID</th>
+							<th>已注册</th>
+							<th>已实名</th>
+							<th>已交易</th>
+							<th>注册时间</th>
+						</tr>
+						<#list members as member>
+				        	<tr<#if member_index % 2 == 1> class="splittr"</#if>>
+				                <td align="center">${member.id}</td>
+				                <td align="center"><img src="/resources/images/ico/ok.png" /></td>
+				                <td align="center"><img src="/resources/images/ico/${(member.name??)?string('ok','delete')}.png" /></td>
+				                <td align="center"><img src="/resources/images/ico/${(member.traderecordsForBuymemberId?size gt 0 || member.traderecordsForSellmemberId?size gt 0)?string('ok','delete')}.png" /></td>
+				                <td align="center">${member.regtime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				        	</tr>
+				        </#list>
+					</table>
+	                <br />
+	                <#include "../../include/pager.html">
+       			</form>
+      		</div>
+	    </#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>

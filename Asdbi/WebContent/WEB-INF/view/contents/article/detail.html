@@ -1,0 +1,42 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>${article.title}-${article.articleType.name}-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/article/detail${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#include "../include/top.html">
+    <div class="middle">
+    	<#if article.articleType.id lt 3>
+	    	<div class="left">
+	    		<span<#if article.articleType.id == 1> class="cur"</#if>>&nbsp;</span><a href="/article/1.html"<#if article.articleType.id == 1> class="cur"</#if>>官方公告</a><#if device == ""><br /><br /><#else>&nbsp;&nbsp;</#if>
+	    		<span<#if article.articleType.id == 2> class="cur"</#if>>&nbsp;</span><a href="/article/2.html"<#if article.articleType.id == 2> class="cur"</#if>>行业资讯</a>
+	    	</div>
+    	</#if>
+    	<div class="right"<#if article.articleType.id == 3> style="width:100%; float:none;"</#if>>
+	   		<div class="articlehead">
+	   			<h1>${article.title}</h1>
+    			<#if article.articleType.id lt 3>
+	   				发布时间：${article.publishtime?string('yyyy-MM-dd')}
+	   			</#if>
+	   		</div>
+	   		<hr class="solidstyle" />
+	   		<div class="articlecontents">
+	   			${article.contents!}
+	   		</div>
+    	</div>
+    	<#if article.articleType.id lt 3>
+    		<br class="clear" />
+    	</#if>
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

@@ -1,0 +1,65 @@
+<link href="/resources/css/imgarea.css" type="text/css" rel="stylesheet" />
+<link href="/resources/css/member/system/dialog/imagecrop.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/resources/js/imgarea.js"></script>
+<script type="text/javascript" src="/resources/js/member/system/dialog/imagecrop.js"></script>
+<div class="head" onmousedown="dialogheadclickdown(this)" onmouseup="dialogheadclickup()">
+	图片裁切<a onclick="dialogclose()"></a>
+</div>
+<div class="body">
+ 	<div class="bodycontent">
+		<div class="left">
+			<p><b>原图</b>&nbsp;&nbsp;&nbsp;左击不放拖曳光标选取裁切区域</p>
+			<div class="frame" style="width:300px; height:300px; text-align:center;">
+				<img id="photo" src="${filepath}" style="${size}:300px; margin:${marintop}px auto 0px auto;" />
+			</div>
+		</div>
+		<div class="right">
+			<p><b>预览：</b></p>
+			<div id="leftframe" class="frame" style="width:${rateX * 100}px; height:100px;">
+				<div id="preview" style="height:100%; overflow:hidden;">
+					<img src="${filepath}" width="0" height="0" />
+				</div>
+			</div>
+			<br />
+			<div class="sizes">
+				<#list imagesizes as imagesize>
+		        	<label><input type="radio" name="switchsize" onclick="switchsize(${imagesize.width},${imagesize.height})"<#if imagesize_index == 0> checked</#if> />${imagesize.width}*${imagesize.height} ${imagesize.description!}</label><br />
+		        </#list>
+			</div>
+			<br />
+			<table width="70%">
+			    <tr>
+			        <td>X1:<span id="x1">-</span></td>
+			        <td>Y1:<span id="y1">-</span></td>
+			    </tr>
+			    <tr>
+			        <td>X2:<span id="x2">-</span></td>
+			        <td>Y2:<span id="y2">-</span></td>
+			    </tr>
+			    <tr>
+			        <td>宽度:<span id="w">-</span></td>
+			        <td>高度:<span id="h">-</span></td>
+			    </tr>
+			    <tr>
+			        <td colspan="2">
+			            <input type="hidden" id="filepath" value="${filepath}" />
+	                    <input type="hidden" id="pnlWidth" value="${imagesizes[0].width}" />
+	                    <input type="hidden" id="pnlHeight" value="${imagesizes[0].height}" />
+			            <input type="hidden" id="preWidth" />
+			            <input type="hidden" id="startX" />
+			            <input type="hidden" id="startY" />
+			            <input type="hidden" id="iWidth" />
+			        </td>
+			    </tr>
+			</table>
+		</div>
+		<input type="hidden" id="rateX" value="${rateX}">
+	</div>
+</div>
+<div class="buttonpanel">
+  	<div class="buttoncontext">
+		<a onclick="imagecrop_cut()">确定</a>
+        <a onclick="imagecrop_donot()">原图</a>
+        <a onclick="imagecrop_cropcannel()">取消</a>
+    </div>
+</div>

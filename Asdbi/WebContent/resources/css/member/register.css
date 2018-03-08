@@ -1,0 +1,13 @@
+.middle {background:#FCFCFC;}
+.middle .left{width:60%; float:left;}
+.middle .left table{width:750px; margin-left:120px;}
+.middle .left table *{font-size:13px;}
+.middle .left table td{padding:7px 0px; vertical-align:middle;}
+.middle .left table td.registertitle{font-size:14px; font-weight:bold;}
+.middle .left table td input{vertical-align:sub;}
+.middle .left table td input[type=text]{width:165px;}
+.middle .left table td input[type=password]{width:165px;}
+.middle .left table td input.vcode{width:165px;}
+.middle .left table td img{vertical-align:middle;}
+.middle .left table td .subbtn{display:block; width:165px; height:40px; line-height:40px; text-align:center; font-family:微软雅黑; font-size:16px; border-radius:3px; color:white; background:#FF4400; border:none;}
+.middle .right{width:40%; float:right; text-align:left; padding-top:10px;}

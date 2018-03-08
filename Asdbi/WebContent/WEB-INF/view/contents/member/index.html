@@ -1,0 +1,110 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/index${device}.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../include/top.html">
+	<#else><div class="top">会员中心 <a href="logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "include/left.html">
+	    	</div>
+	    	<div class="middleright">
+				<div class="middlerightcont">
+					<div class="memberinfo">
+			    		<img src="${member.face!'/resources/images/defaultface.jpg'}" class="face" />
+				    	${member.id} 您好，欢迎登录会员平台&nbsp;&nbsp;&nbsp;&nbsp;<a href="account/">编辑个人资料</a><br />
+				    	<span class="attestationed">手机已认证√</span>&nbsp;&nbsp;
+				    	<<#if member.tradepassword??>span<#else>a href="password/trade"</#if> class="${(member.tradepassword??)?string('attestationed','noattestation')}">交易密码${(member.tradepassword??)?string('已','未')}设置${(member.tradepassword??)?string('√','×')}</${(member.tradepassword??)?string('span','a')}>&nbsp;&nbsp;
+				    	<<#if member.name??>span<#else>a href="certification/normal"</#if> class="${(member.name??)?string('attestationed','noattestation')}">实名${(member.name??)?string('已','未')}认证${(member.name??)?string('√','×')}</${(member.name??)?string('span','a')}>
+			    		<br class="clear" />
+			    	</div><br />
+			    	<hr class="solidstyle" />
+					账户总资产：<span class="totalbalance">${totalbalance}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					可用CNT：${member.balanceactive}&nbsp;&nbsp;&nbsp;&nbsp;
+					冻结：${member.balancedisable}<br />
+					<#if member.name?? && member.idcard??>
+						<table cellspacing="0" class="tablelist">
+							<tr>
+								<th>币种</th>
+								<th>余额</th>
+								<th>冻结</th>
+								<th>合计</th>
+								<th>折合(CNT) </th>
+								<th>操作</th>
+							</tr>
+							<#list membervirtualcoins as membervirtualcoin>
+								<tr<#if membervirtualcoin_index % 2 == 1> class="splittr"</#if>>
+									<td>${membervirtualcoin.virtualcoin.cname} | ${membervirtualcoin.virtualcoin.eunit}</td>
+									<td>${membervirtualcoin.countactive}</td>
+									<td>${membervirtualcoin.countdisable}</td>
+									<td>${(membervirtualcoin.countactive + membervirtualcoin.countdisable)?string("0.#####")}</td>
+									<td><#if membervirtualcoin.virtualcoin.enabled>${((membervirtualcoin.countactive + membervirtualcoin.countdisable) * membervirtualcoin.virtualcoin.price)?string("0.##")}<#else>--</#if></td>
+									<td><a<#if membervirtualcoin.virtualcoin.enabled> href="/trade/${membervirtualcoin.virtualcoin.eunit?lower_case}.html"</#if> class="linkbtn noborder<#if !membervirtualcoin.virtualcoin.enabled> gray</#if>">去交易</a></td>
+								</tr>
+							</#list>
+						</table>
+						<input type="hidden" id="membervirtualcoinids" value="${membervirtualcoinids}" />
+					</#if>
+		    	</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+			<#-- WAP -->
+			<div class="memberinfo">
+				<img src="${member.face!'/resources/images/defaultface.jpg'}" />
+				<b>${member.id}</b>&nbsp;&nbsp;
+				<a href="account/">个人资料</a>
+				<a href="password/login">密码修改</a><br />
+		    	<<#if member.tradepassword??>span<#else>a href="password/trade"</#if> class="${(member.tradepassword??)?string('attestationed','noattestation')}">交易密码${(member.tradepassword??)?string('已','未')}设置${(member.tradepassword??)?string('√','×')}</${(member.tradepassword??)?string('span','a')}>&nbsp;&nbsp;
+		    	<<#if member.name??>span<#else>a href="certification/normal"</#if> class="${(member.name??)?string('attestationed','noattestation')}">实名${(member.name??)?string('已','未')}认证${(member.name??)?string('√','×')}</${(member.name??)?string('span','a')}>
+				<br class="clear" />
+			</div>
+			<div class="memberassets">
+				账户总资产：<span class="totalbalance">${totalbalance}</span><br />
+				可用CNT：${member.balanceactive}&nbsp;&nbsp;&nbsp;&nbsp;冻结：${member.balancedisable}
+			</div>
+			<#if member.name?? && member.idcard??>
+				<div class="menus">
+					<a href="/tradec2c/">C2C交易<img src="/resources/images/member/main/wap/rightjj.gif" class="rightjj" /></a>
+					<a href="/member/vcoinassets/">我的虚拟币资产<img src="/resources/images/member/main/wap/rightjj.gif" /></a>
+				</div>
+				<div class="menus">
+					<a href="/member/vcoin/putin">虚拟币转入与转出<img src="/resources/images/member/main/wap/rightjj.gif" class="rightjj" /></a>
+					<a href="/member/orderform/">挂单管理<img src="/resources/images/member/main/wap/rightjj.gif" class="rightjj" /></a>
+					<a href="/member/record/trade">交易记录<img src="/resources/images/member/main/wap/rightjj.gif" class="rightjj" /></a>
+				</div>
+			</#if>
+			<div class="menus">
+				<a href="/member/certification/normal">实名认证<img src="/resources/images/member/main/wap/rightjj.gif" /></a>
+				<a href="/member/bankcard/">银行卡号<img src="/resources/images/member/main/wap/rightjj.gif" /></a>
+				<a href="/member/invite/">邀请好友<img src="/resources/images/member/main/wap/rightjj.gif" /></a>
+				<a href="/member/repairorder/">工单解答<img src="/resources/images/member/main/wap/rightjj.gif" /></a>
+			</div>
+			<br />
+			<div class="email">
+				联系邮箱：<a href="mailto:bi_top@yeah.net">bi_top@yeah.net</a><br />
+				QQ交流三群：576716667<br />
+				QQ交流四群：698780024<br />
+				QQ交流八群：699313093<br />
+			</div>
+			<br />
+		</#if>
+    </div>
+    <#include "../include/bottom.html">
+</body>
+</html>

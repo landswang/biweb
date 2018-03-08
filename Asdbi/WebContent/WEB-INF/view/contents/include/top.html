@@ -1,0 +1,47 @@
+<#if device == "">
+	<#-- PC -->
+	<div class="top">
+		<div class="cont">
+			<div class="left">
+				<img alt="${web.title}" src="/resources/images/logo_nb.png" class="logo" />
+				<a href="/" class="first">首页</a>
+				<a onclick="opencoins(event)" class="first">现货交易 <img src="/resources/images/main/down_s_w.png" /></a>
+				<a href="/tradec2c/" class="first">C2C交易</a>
+				<a href="/member/" class="first">财务中心</a>
+				<a href="/article/1.html" class="first">最新公告</a>
+				<a href="/faq/95.html" class="first">常见问题</a>
+				<div class="coins">
+					<#list virtualcoins as virtualcoin>
+						<a href="/trade/${virtualcoin.eunit?lower_case}.html"><img src="${virtualcoin.image}" />${virtualcoin.cname}</a>
+					</#list>
+				</div>
+			</div>
+			<div class="right">
+				<#if !member??>
+					<a href="/member/login">登录</a> |
+					<a href="/member/register">注册</a>
+				<#else>
+					<a href="/member/">${member.id}</a> |
+					<a href="/member/logout" onclick="return confirm('确定退出吗？')">退出</a>
+				</#if>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a onclick="zh_tran('s')">简体</a> |
+				<a onclick="zh_tran('t')">繁体</a>
+			</div>
+			<br class="clear" />
+		</div>
+	</div>
+<#else>
+	<#-- WAP -->
+	<table class="top">
+		<tr>
+			<td class="tdlogo"><a href="/"><img src="/resources/images/logo_s.png" alt="${web.title}" class="logo" /></a></td>
+			<td class="tdwebtitle">
+				${web.title}
+			</td>
+			<td class="tdface">
+				<a href="/member/"><img src="<#if member??>${member.face!'/resources/images/defaultface.jpg'}<#else>/resources/images/defaultface.jpg</#if>" class="face" /></a>
+			</td>
+		</tr>
+	</table>
+</#if>

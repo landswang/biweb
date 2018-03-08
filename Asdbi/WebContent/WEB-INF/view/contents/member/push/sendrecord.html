@@ -1,0 +1,111 @@
+<!DOCTYPE html<#if device == ""> PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</#if>>
+<html<#if device == "">  xmlns="http://www.w3.org/1999/xhtml"</#if>>
+<head>
+<meta<#if device == ""> http-equiv="Content-Type" content="text/html; charset=utf-8"<#else> charset="utf-8"</#if> />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<title>会员中心-${web.title}</title>
+<link href="/resources/css/main${device}.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/member/main${device}.css" type="text/css" rel="stylesheet">
+<#if device != ""><link href="/resources/css/member/push_m.css" type="text/css" rel="stylesheet"></#if>
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/base.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/traditional.js"></script>
+<script type="text/javascript" src="/resources/js/member/pushtransfer.js"></script>
+</head>
+<body>
+	<#if device == ""><#include "../../include/top.html">
+	<#else><div class="top"><a href="../" class="return"><img src="/resources/images/member/main/wap/return.gif" /></a>PUSH转账<a href=../logout" onclick="return confirm('确定退出登录吗？')" class="logout">退出</a></div>
+	</#if>
+    <div class="middle">
+    	<#if device == "">
+    		<#-- PC -->
+	    	<div class="middleleft">
+	    		<#include "../include/left.html">
+	    	</div>
+	    	<div class="middleright">
+	    		<div class="position"><span>&nbsp;</span>PUSH转账</div>
+    			<div class="middlerightcont">
+    				<div class="conttabhead">
+    					<a href="transfer">在线PUSH</a>
+    					<span>发出的PUSH</span>
+    					<a href="receiverecord">接收的PUSH</a>
+    				</div>
+    				<br />
+    				<form method="post" action="sendrecord">
+	    				<table cellspacing="0" class="tablelist">
+							<tr>
+								<th>币种</th>
+								<th>数额</th>
+								<th>金额</th>
+								<th>对方ID</th>
+								<th>时间</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+							<#list pushrecords as pushrecord>
+					        	<tr<#if pushrecord_index % 2 == 1> class="splittr"</#if>>
+					                <td align="center">${pushrecord.virtualcoin.cname}</td>
+					                <td align="center">${pushrecord.count}</td>
+					                <td align="center">${pushrecord.money}</td>
+					                <td align="center">${pushrecord.memberByReceiverId.id}</td>
+					                <td align="center">${pushrecord.pushtime?string('yyyy-MM-dd HH:mm:ss')}</td>
+					                <td align="center">${pushrecord.pushrecordState.name}</td>
+					                <td align="center">
+					                	<#if pushrecord.pushrecordState.id == 1>
+					                    	<a href="sendrevocation?pushrecordid=${pushrecord.id}" class="linkbtn noborder" onclick="return confirm('确定撤销该数据吗？')">撤销</a>
+					                    </#if>
+					                </td>
+					        	</tr>
+					        </#list>
+						</table>
+		                <br />
+		                <#include "../../include/pager.html">
+        			</form>
+	    		</div>
+		    </div>
+		    <br class="clear" />
+	    <#else>
+	    	<#-- WAP -->
+    		<div class="middletop">
+				<a href="transfer">在线PUSH</a>
+  				<a class="cur">发出的PUSH</a>
+  				<a href="receiverecord">接收的PUSH</a>
+			</div>
+ 			<div class="middlebottom">
+   				<form method="post" action="sendrecord">
+    				<table cellspacing="0" class="tablelist">
+						<tr>
+							<th>币种</th>
+							<th>数额</th>
+							<th>金额</th>
+							<th>对方ID</th>
+							<th>时间</th>
+							<th>状态</th>
+						</tr>
+						<#list pushrecords as pushrecord>
+				        	<tr<#if pushrecord_index % 2 == 1> class="splittr"</#if>>
+				                <td align="center">${pushrecord.virtualcoin.cname}</td>
+				                <td align="center">${pushrecord.count}</td>
+				                <td align="center">${pushrecord.money}</td>
+				                <td align="center">${pushrecord.memberByReceiverId.id}</td>
+				                <td align="center">${pushrecord.pushtime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				                <td align="center">${pushrecord.pushrecordState.name}</td>
+				        	</tr>
+				        	<#if pushrecord.pushrecordState.id == 1>
+					        	<tr>
+					        		<td colspan="6"><a href="sendrevocation?pushrecordid=${pushrecord.id}" class="linkbtn noborder" onclick="return confirm('确定撤销该数据吗？')">撤销</a></td>
+					        	</tr>
+		                    </#if>
+				        </#list>
+					</table>
+	                <br />
+	                <#include "../../include/pager.html">
+       			</form>
+      		</div>
+	    </#if>
+    </div>
+    <#include "../../include/bottom.html">
+</body>
+</html>
